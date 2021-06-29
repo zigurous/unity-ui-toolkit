@@ -1,10 +1,10 @@
 {
-  "name": "com.zigurous.template",
+  "name": "com.zigurous.ui",
   "version": "0.1.0",
-  "displayName": "Zigurous Template",
+  "displayName": "Zigurous UI Toolkit",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   "unity": "2019.4",
-  "repository": "https://github.com/zigurous/unity-package-template",
+  "repository": "https://github.com/zigurous/unity-ui-toolkit",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@zigurous"
   },
