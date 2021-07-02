@@ -5,10 +5,17 @@ using UnityEngine.UI;
 
 namespace Zigurous.UI
 {
+    /// <summary>
+    /// Handles scrolling a ScrollRect component to the selected child element.
+    /// This is especially useful for controller support.
+    /// </summary>
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("Zigurous/UI/Navigation/Scroll To Selection")]
     public class ScrollToSelection : MonoBehaviour
     {
+        /// <summary>
+        /// A scroll direction type.
+        /// </summary>
         public enum ScrollDirection
         {
             Vertical,
@@ -16,13 +23,43 @@ namespace Zigurous.UI
             Both,
         }
 
+        /// <summary>
+        /// The direction to scroll the ScrollRect.
+        /// </summary>
+        [Tooltip("The direction to scroll the ScrollRect.")]
         public ScrollDirection scrollDirection;
+
+        /// <summary>
+        /// How quickly the ScrollRect scrolls.
+        /// </summary>
+        [Tooltip("How quickly the ScrollRect scrolls.")]
         public float scrollSpeed = 10.0f;
+
+        /// <summary>
+        /// Whether the ScrollRect is currently being manually scrolled. This
+        /// allows the user to scroll freely with the mouse even when a child
+        /// element is selected.
+        /// </summary>
         public bool manualScrolling { get; private set; }
 
+        /// <summary>
+        /// The ScrollRect component being scrolled.
+        /// </summary>
         public ScrollRect scrollRect { get; private set; }
+
+        /// <summary>
+        /// The RectTransform component of the scroll rect.
+        /// </summary>
         public RectTransform scrollTransform { get; private set; }
+
+        /// <summary>
+        /// The current selected game object.
+        /// </summary>
         public GameObject selectedGameObject { get; private set; }
+
+        /// <summary>
+        /// The RectTransform of the current selected game object.
+        /// </summary>
         public RectTransform selectedTransform { get; private set; }
 
         private void Awake()

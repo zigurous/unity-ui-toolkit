@@ -5,12 +5,29 @@ using UnityEngine.UI;
 
 namespace Zigurous.UI
 {
+    /// <summary>
+    /// Handles scrolling a ScrollRect component with user input. This is
+    /// especially useful for controller support.
+    /// </summary>
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("Zigurous/UI/Navigation/Scroll With Input")]
     public class ScrollWithInput : MonoBehaviour
     {
-        private ScrollRect _scrollRect;
-        public InputAction scrollInput;
+        /// <summary>
+        /// The ScrollRect component being scrolled.
+        /// </summary>
+        public ScrollRect scrollRect { get; private set; }
+
+        /// <summary>
+        /// The input action that handles scrolling.
+        /// </summary>
+        [Tooltip("The input action that handles scrolling.")]
+        public InputAction scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
+
+        /// <summary>
+        /// The sensitivity multiplier applied to the input.
+        /// </summary>
+        [Tooltip("The sensitivity multiplier applied to the input.")]
         public float sensitivity = 1.0f;
 
         private void Reset()
@@ -23,7 +40,7 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            _scrollRect = GetComponent<ScrollRect>();
+            this.scrollRect = GetComponent<ScrollRect>();
         }
 
         private void OnEnable()
@@ -44,11 +61,11 @@ namespace Zigurous.UI
                 return;
             }
 
-            if (eventSystem.currentSelectedGameObject == _scrollRect.gameObject ||
-                eventSystem.currentSelectedGameObject.transform.parent == _scrollRect.content)
+            if (eventSystem.currentSelectedGameObject == this.scrollRect.gameObject ||
+                eventSystem.currentSelectedGameObject.transform.parent == this.scrollRect.content)
             {
                 Vector2 input = this.scrollInput.ReadValue<Vector2>();
-                _scrollRect.normalizedPosition += input * this.sensitivity * Time.unscaledDeltaTime;
+                this.scrollRect.normalizedPosition += input * this.sensitivity * Time.unscaledDeltaTime;
             }
         }
 
