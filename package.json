@@ -4,6 +4,11 @@
   "displayName": "Zigurous UI Toolkit",
   "description": "The UI Toolkit package contains scripts and utilities for creating UI in Unity projects.",
   "unity": "2019.4",
+  "keywords": [
+    "ui",
+    "scripts",
+    "utilities"
+  ],
   "repository": "https://github.com/zigurous/unity-ui-toolkit",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@zigurous"
