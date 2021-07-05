@@ -1,5 +1,13 @@
 # UI Toolkit
 
+The UI Toolkit package contains scripts and utilities for creating UI in Unity projects.
+
+Import the package namespace in each class/script you want to use it. You may need to regenerate project files/assemblies first.
+
+```csharp
+using Zigurous.UI;
+```
+
 ## Installation
 
 The Unity Package Manager can load a package from a Git repository on a remote server.

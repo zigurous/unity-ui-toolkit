@@ -2,7 +2,7 @@
   "name": "com.zigurous.ui",
   "version": "0.1.0",
   "displayName": "Zigurous UI Toolkit",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "description": "The UI Toolkit package contains scripts and utilities for creating UI in Unity projects.",
   "unity": "2019.4",
   "repository": "https://github.com/zigurous/unity-ui-toolkit",
   "publishConfig": {
