@@ -1,8 +1,4 @@
-# UI Toolkit
-
-The UI Toolkit package contains scripts and utilities for creating UI in Unity projects.
-
-## Installation
+# Installation
 
 Use the Unity [Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) to install the UI Toolkit package.
 
@@ -29,3 +25,9 @@ Import the package namespace in each script or file you want to use it.
 ```csharp
 using Zigurous.UI;
 ```
+
+### Source Code
+
+The source code for the UI Toolkit package is in the following repository:
+
+- https://github.com/zigurous/unity-ui-toolkit
