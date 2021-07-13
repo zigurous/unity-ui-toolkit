@@ -2,3 +2,7 @@
   href: index.md
 - name: Installation
   href: installation.md
+- name: Reference
+  items:
+  - name: Menus
+    href: menus.md
