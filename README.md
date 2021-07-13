@@ -29,3 +29,16 @@ Import the package namespace in each script or file you want to use it.
 ```csharp
 using Zigurous.UI;
 ```
+
+## Reference
+
+### API
+
+- [NavigationStack](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.NavigationStack.html)
+- [ScrollToSelection](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollToSelection.html)
+- [ScrollWithInput](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollWithInput.html)
+
+### Manual
+
+- [Menus](https://docs.zigurous.com/com.zigurous.ui/manual/menus.html)
+
