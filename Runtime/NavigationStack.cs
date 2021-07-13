@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 namespace Zigurous.UI
 {
     /// <summary>
-    /// Keeps track of a stack of selected game objects as to allow for easy
-    /// back navigation.
+    /// Manages a stack of game objects for menu navigation purposes. This is
+    /// especially useful to handle backwards navigation by simply popping off
+    /// the last item in the stack.
     /// </summary>
     [RequireComponent(typeof(EventSystem))]
     [AddComponentMenu("Zigurous/UI/Navigation/Navigation Stack")]
@@ -29,10 +30,10 @@ namespace Zigurous.UI
         public GameObject Top => this.items.Count > 0 ? this.items.Peek() : null;
 
         /// <summary>
-        /// The input action to handle navigating backwards in the stack by
-        /// popping items off.
+        /// The input action that handles backwards navigation by popping items
+        /// off the stack.
         /// </summary>
-        [Tooltip("The input action to handle navigating backwards in the stack by popping items off.")]
+        [Tooltip("The input action that handles backwards navigation by popping items off the stack.")]
         public InputAction backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
 
         /// <summary>
@@ -92,6 +93,11 @@ namespace Zigurous.UI
             this.backNavigationInput.Disable();
         }
 
+        /// <summary>
+        /// Pushes a game object onto the stack, effectively navigating
+        /// forwards.
+        /// </summary>
+        /// <param name="selected">The game object to push onto the stack.</param>
         public void Push(GameObject selected)
         {
             if (selected != null || this.allowNullSelections)
@@ -105,16 +111,23 @@ namespace Zigurous.UI
             }
         }
 
-        public void Back()
+        /// <summary>
+        /// Pops the last game object off the stack, effectively navigating
+        /// backwards.
+        /// </summary>
+        /// <returns>The game object that was popped off the stack.</returns>
+        public GameObject Pop()
         {
             if (this.items.Count == 0) {
-                return;
+                return null;
             }
+
+            GameObject top = null;
 
             // Pop off the top of the stack
             if (this.items.Count > 1 || this.allowEmptyStack)
             {
-                GameObject top = this.items.Pop();
+                top = this.items.Pop();
 
                 if (this.setActiveState && top != null) {
                     top.SetActive(false);
@@ -134,12 +147,14 @@ namespace Zigurous.UI
 
                 this.eventSystem.SetSelectedGameObject(previous);
             }
+
+            return top;
         }
 
         private void OnBack(InputAction.CallbackContext context)
         {
             if (context.performed) {
-                Back();
+                Pop();
             }
         }
 

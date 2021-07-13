@@ -14,12 +14,23 @@ namespace Zigurous.UI
     public class ScrollToSelection : MonoBehaviour
     {
         /// <summary>
-        /// A scroll direction type.
+        /// A scroll direction.
         /// </summary>
         public enum ScrollDirection
         {
+            /// <summary>
+            /// Scrolls in the y-axis.
+            /// </summary>
             Vertical,
+
+            /// <summary>
+            /// Scrolls in the x-axis.
+            /// </summary>
             Horizontal,
+
+            /// <summary>
+            /// Scrolls in both the x-axis and the y-axis.
+            /// </summary>
             Both,
         }
 
@@ -36,8 +47,8 @@ namespace Zigurous.UI
         public float scrollSpeed = 10.0f;
 
         /// <summary>
-        /// Whether the ScrollRect is currently being manually scrolled. This
-        /// allows the user to scroll freely with the mouse even when a child
+        /// Whether the ScrollRect is currently being scrolled manually. This
+        /// allows the user to freely scroll with the mouse even when a child
         /// element is selected.
         /// </summary>
         public bool manualScrolling { get; private set; }
