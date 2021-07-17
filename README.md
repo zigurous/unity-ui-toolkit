@@ -34,11 +34,13 @@ using Zigurous.UI;
 
 ### API
 
+- [Letterboxing](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.Letterboxing.html)
 - [NavigationStack](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.NavigationStack.html)
+- [ScreenSizeListener](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScreenSizeListener.html)
 - [ScrollToSelection](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollToSelection.html)
 - [ScrollWithInput](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollWithInput.html)
+- [StretchToScreenSize](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.StretchToScreenSize.html)
 
 ### Manual
 
 - [Menus](https://docs.zigurous.com/com.zigurous.ui/manual/menus.html)
-
