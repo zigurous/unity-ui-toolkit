@@ -9,6 +9,7 @@ namespace Zigurous.UI
     /// to a specified aspect ratio. This is also referred to as cinematic black
     /// bars and is useful for cutscenes in games.
     /// </summary>
+    [AddComponentMenu("Zigurous/UI/Misc/Letterboxing")]
     [RequireComponent(typeof(RectTransform))]
     public sealed class Letterboxing : MonoBehaviour
     {

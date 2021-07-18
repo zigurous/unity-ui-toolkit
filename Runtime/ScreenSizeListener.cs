@@ -5,6 +5,7 @@ namespace Zigurous.UI
     /// <summary>
     /// Listens for changes in the screen size.
     /// </summary>
+    [AddComponentMenu("")]
     public sealed class ScreenSizeListener : MonoBehaviour
     {
         private static volatile ScreenSizeListener _instance;
