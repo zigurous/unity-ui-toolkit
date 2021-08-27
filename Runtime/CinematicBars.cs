@@ -6,12 +6,12 @@ namespace Zigurous.UI
 {
     /// <summary>
     /// Displays mattes on the top and bottom of the screen to crop the screen
-    /// to a specified aspect ratio. This is also referred to as cinematic black
-    /// bars and is useful for cutscenes in games.
+    /// to a specified aspect ratio. This is also referred to as letterboxing
+    /// and is useful for cutscenes in games.
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
-    [AddComponentMenu("Zigurous/UI/Misc/Letterboxing")]
-    public sealed class Letterboxing : MonoBehaviour
+    [AddComponentMenu("Zigurous/UI/Misc/Cinematic Bars")]
+    public sealed class CinematicBars : MonoBehaviour
     {
         /// <summary>
         /// The top letterbox matte (Read only).
@@ -103,7 +103,9 @@ namespace Zigurous.UI
 
             this.matteBottom = CreateMatte();
             this.matteTop = CreateMatte();
-            this.matteTop.localScale = new Vector3(1.0f, -1.0f, 1.0f);
+            this.matteTop.localScale = new Vector3(1f, -1f, 1f);
+
+            SetDesiredHeight(0f);
         }
 
         private RectTransform CreateMatte()
@@ -112,7 +114,7 @@ namespace Zigurous.UI
             matte.transform.parent = this.transform;
 
             RectTransform matteRect = matte.AddComponent<RectTransform>();
-            matteRect.SetHeight(0.0f);
+            matteRect.SetHeight(0f);
 
             matte.AddComponent<CanvasRenderer>();
 
@@ -172,14 +174,14 @@ namespace Zigurous.UI
 
         private void UpdateMattes()
         {
-            UpdateMattes(animated: this.animationDuration > 0.0f);
+            UpdateMattes(animated: this.animationDuration > 0f);
         }
 
         private void UpdateMattes(bool animated)
         {
             if (!this.gameObject.activeInHierarchy)
             {
-                SizeAndPositionMattes(0.0f);
+                SetDesiredHeight(0f);
                 return;
             }
 
@@ -195,32 +197,32 @@ namespace Zigurous.UI
             }
             else
             {
-                SizeAndPositionMattes(desiredHeight);
+                SetDesiredHeight(desiredHeight);
             }
         }
 
         private IEnumerator Animate(float currentHeight, float desiredHeight)
         {
-            float elapsed = 0.0f;
+            float elapsed = 0f;
 
             while (elapsed < this.animationDuration)
             {
                 float percent = Mathf.Clamp01(elapsed / this.animationDuration);
                 float height = Mathf.SmoothStep(currentHeight, desiredHeight, percent);
 
-                SizeAndPositionMattes(height);
+                SetDesiredHeight(height);
 
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            SizeAndPositionMattes(desiredHeight);
+            SetDesiredHeight(desiredHeight);
         }
 
         private float CalculateMatteHeight()
         {
             if (!this.enabled) {
-                return 0.0f;
+                return 0f;
             }
 
             float screenWidth = Screen.width;
@@ -235,19 +237,21 @@ namespace Zigurous.UI
             }
 
             float letterbox = screenWidth / this.aspectRatio;
-            return (screenHeight - letterbox) * 0.5f;
+            float height = (screenHeight - letterbox) / 2f;
+
+            return float.IsNaN(height) ? 0f : height;
         }
 
-        private void SizeAndPositionMattes(float height)
+        private void SetDesiredHeight(float height)
         {
             this.matteHeight = height;
 
             if (this.matteTop != null) {
-                this.matteTop.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0.0f, height);
+                this.matteTop.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0f, height);
             }
 
             if (this.matteBottom != null) {
-                this.matteBottom.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0.0f, height);
+                this.matteBottom.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0f, height);
             }
         }
 
