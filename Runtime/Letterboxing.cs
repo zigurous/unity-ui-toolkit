@@ -1,0 +1,187 @@
+﻿using System.Collections;
+using UnityEngine;
+
+namespace Zigurous.UI
+{
+    /// <summary>
+    /// Crops the screen to a specified aspect ratio by changing the camera's
+    /// viewport. This is known as letterboxing and is useful for cutscenes.
+    /// </summary>
+    [RequireComponent(typeof(Camera))]
+    [AddComponentMenu("Zigurous/UI/Misc/Letterboxing")]
+    public sealed class Letterboxing : MonoBehaviour
+    {
+        /// <summary>
+        /// The camera being letterboxed (Read only).
+        /// </summary>
+        public new Camera camera { get; private set; }
+
+        /// <summary>
+        /// The current height of the viewport (Read only).
+        /// </summary>
+        public float viewportHeight => this.camera.rect.height;
+
+        /// <summary>
+        /// The aspect ratio of the mattes.
+        /// </summary>
+        [Tooltip("The aspect ratio of the mattes.")]
+        [SerializeField]
+        private float _aspectRatio = 2.35f;
+
+        /// <summary>
+        /// The aspect ratio of the mattes.
+        /// </summary>
+        public float aspectRatio
+        {
+            get { return _aspectRatio; }
+            set { _aspectRatio = value; UpdateViewport(); }
+        }
+
+        /// <summary>
+        /// The amount of seconds it takes to animate the mattes.
+        /// </summary>
+        [Tooltip("The amount of seconds it takes to animate the mattes.")]
+        public float animationDuration = 0.5f;
+
+        /// <summary>
+        /// The coroutine that animates the mattes.
+        /// </summary>
+        private Coroutine _animation;
+
+        #if UNITY_EDITOR
+        /// <summary>
+        /// Whether the current settings have been invalidated.
+        /// </summary>
+        private bool _invalidated;
+        #endif
+
+        private void Awake()
+        {
+            this.camera = GetComponent<Camera>();
+        }
+
+        private void Start()
+        {
+            ScreenSizeListener.Instance.resized += OnScreenResize;
+        }
+
+        private void OnDestroy()
+        {
+            if (ScreenSizeListener.HasInstance) {
+                ScreenSizeListener.Instance.resized -= OnScreenResize;
+            }
+        }
+
+        private void OnValidate()
+        {
+            _invalidated = true;
+        }
+
+        private void OnEnable()
+        {
+            UpdateViewport();
+        }
+
+        private void OnDisable()
+        {
+            UpdateViewport();
+        }
+
+        private void OnScreenResize(int width, int height)
+        {
+            UpdateViewport(animated: false);
+        }
+
+        private void Update()
+        {
+            if (_invalidated)
+            {
+                UpdateViewport(animated: false);
+
+                _invalidated = false;
+            }
+        }
+
+        private void UpdateViewport()
+        {
+            UpdateViewport(animated: this.animationDuration > 0f);
+        }
+
+        private void UpdateViewport(bool animated)
+        {
+            if (!this.gameObject.activeInHierarchy)
+            {
+                SetViewportHeight(1f);
+                return;
+            }
+
+            float desiredHeight = CalculateViewportHeight();
+
+            if (animated)
+            {
+                if (_animation != null) {
+                    StopCoroutine(_animation);
+                }
+
+                _animation = StartCoroutine(Animate(this.viewportHeight, desiredHeight));
+            }
+            else
+            {
+                SetViewportHeight(desiredHeight);
+            }
+        }
+
+        private IEnumerator Animate(float currentHeight, float desiredHeight)
+        {
+            float elapsed = 0f;
+
+            while (elapsed < this.animationDuration)
+            {
+                float percent = Mathf.Clamp01(elapsed / this.animationDuration);
+                float height = Mathf.SmoothStep(currentHeight, desiredHeight, percent);
+
+                SetViewportHeight(height);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            SetViewportHeight(desiredHeight);
+        }
+
+        private float CalculateViewportHeight()
+        {
+            if (!this.enabled) {
+                return 1f;
+            }
+
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+
+            // Screen.width and Screen.height oddly does not always give the
+            // correct values so try to use ScreenSizeListener if available
+            if (ScreenSizeListener.HasInstance)
+            {
+                screenWidth = ScreenSizeListener.Instance.width;
+                screenHeight = ScreenSizeListener.Instance.height;
+            }
+
+            float letterbox = screenWidth / this.aspectRatio;
+            float height = (screenHeight - letterbox) / 2f;
+            float viewport = 1f - ((height / screenHeight) * 2f);
+
+            return float.IsNaN(viewport) ? 1f : viewport;
+        }
+
+        private void SetViewportHeight(float height)
+        {
+            Rect rect = this.camera.rect;
+            rect.height = height;
+            rect.y = (1f - height) / 2f;
+
+            this.camera.rect = rect;
+        }
+
+    }
+
+}

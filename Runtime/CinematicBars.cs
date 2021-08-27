@@ -7,7 +7,7 @@ namespace Zigurous.UI
     /// <summary>
     /// Displays mattes on the top and bottom of the screen to crop the screen
     /// to a specified aspect ratio. This is also referred to as letterboxing
-    /// and is useful for cutscenes in games.
+    /// and is useful for cutscenes.
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     [AddComponentMenu("Zigurous/UI/Misc/Cinematic Bars")]
