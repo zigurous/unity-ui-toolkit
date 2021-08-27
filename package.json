@@ -11,7 +11,7 @@
   ],
   "repository": "https://github.com/zigurous/unity-ui-toolkit",
   "documentationUrl": "https://docs.zigurous.com/com.zigurous.ui",
-  "changelogUrl": "https://docs.zigurous.com/com.zigurous.ui/changelog/CHANGELOG.html",
+  "changelogUrl": "https://docs.zigurous.com/com.zigurous.ui/changelog",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@zigurous"
   },
