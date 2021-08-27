@@ -66,6 +66,11 @@ namespace Zigurous.UI
         public OnResize resized;
 
         /// <summary>
+        /// The current size of the screen (Read only).
+        /// </summary>
+        public Vector2Int size => new Vector2Int(this.width, this.height);
+
+        /// <summary>
         /// The current width of the screen (Read only).
         /// </summary>
         public int width { get; private set; }
@@ -81,9 +86,14 @@ namespace Zigurous.UI
         {
             _isUnloading = false;
 
-            if (_instance == null) {
+            if (_instance == null)
+            {
                 _instance = this;
-            } else {
+
+                this.width = Screen.width;
+                this.height = Screen.height;
+            }
+            else {
                 Destroy(this);
             }
         }
@@ -97,12 +107,6 @@ namespace Zigurous.UI
             if (_instance == this) {
                 _instance = null;
             }
-        }
-
-        private void OnEnable()
-        {
-            this.width = Screen.width;
-            this.height = Screen.height;
         }
 
         private void Update()
