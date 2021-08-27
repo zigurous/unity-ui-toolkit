@@ -2,21 +2,17 @@
 
 [![](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/zigurous/unity-ui-toolkit) [![](https://img.shields.io/github/package-json/v/zigurous/unity-ui-toolkit)](https://github.com/zigurous/unity-ui-toolkit/releases) [![](https://img.shields.io/badge/docs-link-success)](https://docs.zigurous.com/com.zigurous.ui) [![](https://img.shields.io/github/license/zigurous/unity-ui-toolkit)](https://github.com/zigurous/unity-ui-toolkit/blob/main/LICENSE.md)
 
-The UI Toolkit package contains scripts and utilities for creating UI in Unity projects. The package is intended to solve common problems that arise when developing UI and menus. The package is still early in development, and more functionality will be added over time.
+The **UI Toolkit** package contains scripts and utilities for creating UI in Unity projects. The package is intended to solve common problems that arise when developing UI and menus. The package is still early in development, and more functionality will be added over time.
 
 ## Reference
 
-- [Menus](https://docs.zigurous.com/com.zigurous.ui/manual/menus.html)
-- [Letterboxing (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.Letterboxing.html)
-- [NavigationStack (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.NavigationStack.html)
-- [ScreenSizeListener (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScreenSizeListener.html)
-- [ScrollToSelection (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollToSelection.html)
-- [ScrollWithInput (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.ScrollWithInput.html)
-- [StretchToScreenSize (Script)](https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI.StretchToScreenSize.html)
+- [Menu Tools](https://docs.zigurous.com/com.zigurous.ui/manual/menus)
+- [Letterboxing](https://docs.zigurous.com/com.zigurous.ui/manual/letterboxing)
+- [Screen Size](https://docs.zigurous.com/com.zigurous.ui/manual/screen-size)
 
 ## Installation
 
-Use the Unity [Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) to install the UI Toolkit package.
+Use the Unity [Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) to install the **UI Toolkit** package.
 
 1. Open the Package Manager in `Window > Package Manager`
 2. Click the add (`+`) button in the status bar
@@ -34,9 +30,7 @@ For more information on the Package Manager and installing packages, see the fol
 
 ### Importing
 
-Import the package namespace in each script or file you want to use it.
-
-> **Note**: You may need to regenerate project files/assemblies first.
+Import the package namespace in each script or file you want to use it. You may need to regenerate project files/assemblies first.
 
 ```csharp
 using Zigurous.UI;
