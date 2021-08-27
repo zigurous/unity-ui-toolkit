@@ -8,8 +8,7 @@ namespace Zigurous.UI
     public static class GraphicExtensions
     {
         /// <summary>
-        /// Fades the alpha of the graphic to 100% over the given
-        /// <paramref name="duration"/>.
+        /// Fades the alpha of the graphic to 100% over the given duration.
         /// </summary>
         /// <param name="graphic">The graphic to fade.</param>
         /// <param name="duration">The amount of seconds it takes to fade the graphic.</param>
@@ -20,8 +19,7 @@ namespace Zigurous.UI
         }
 
         /// <summary>
-        /// Fades the alpha of the graphic to 0% over the given
-        /// <paramref name="duration"/>.
+        /// Fades the alpha of the graphic to 0% over the given duration.
         /// </summary>
         /// <param name="graphic">The graphic to fade.</param>
         /// <param name="duration">The amount of seconds it takes to fade the graphic.</param>

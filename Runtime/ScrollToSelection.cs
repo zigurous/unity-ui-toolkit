@@ -35,6 +35,26 @@ namespace Zigurous.UI
         }
 
         /// <summary>
+        /// The ScrollRect component being scrolled (Read only).
+        /// </summary>
+        public ScrollRect scrollRect { get; private set; }
+
+        /// <summary>
+        /// The RectTransform component of the scroll rect (Read only).
+        /// </summary>
+        public RectTransform scrollTransform { get; private set; }
+
+        /// <summary>
+        /// The current selected game object (Read only).
+        /// </summary>
+        public GameObject selectedGameObject { get; private set; }
+
+        /// <summary>
+        /// The RectTransform of the current selected game object (Read only).
+        /// </summary>
+        public RectTransform selectedTransform { get; private set; }
+
+        /// <summary>
         /// The direction to scroll the ScrollRect.
         /// </summary>
         [Tooltip("The direction to scroll the ScrollRect.")]
@@ -49,29 +69,9 @@ namespace Zigurous.UI
         /// <summary>
         /// Whether the ScrollRect is currently being scrolled manually. This
         /// allows the user to freely scroll with the mouse even when a child
-        /// element is selected.
+        /// element is selected (Read only).
         /// </summary>
         public bool manualScrolling { get; private set; }
-
-        /// <summary>
-        /// The ScrollRect component being scrolled.
-        /// </summary>
-        public ScrollRect scrollRect { get; private set; }
-
-        /// <summary>
-        /// The RectTransform component of the scroll rect.
-        /// </summary>
-        public RectTransform scrollTransform { get; private set; }
-
-        /// <summary>
-        /// The current selected game object.
-        /// </summary>
-        public GameObject selectedGameObject { get; private set; }
-
-        /// <summary>
-        /// The RectTransform of the current selected game object.
-        /// </summary>
-        public RectTransform selectedTransform { get; private set; }
 
         private void Awake()
         {

@@ -14,41 +14,26 @@ namespace Zigurous.UI
     public sealed class Letterboxing : MonoBehaviour
     {
         /// <summary>
+        /// The top letterbox matte (Read only).
+        /// </summary>
+        public RectTransform matteTop { get; private set; }
+
+        /// <summary>
+        /// The bottom letterbox matte (Read only).
+        /// </summary>
+        public RectTransform matteBottom { get; private set; }
+
+        /// <summary>
+        /// The current height of the letterbox mattes (Read only).
+        /// </summary>
+        public float matteHeight { get; private set; }
+
+        /// <summary>
         /// The color of the mattes.
         /// </summary>
         [Tooltip("The color of the mattes.")]
         [SerializeField]
         private Color _color = Color.black;
-
-        /// <summary>
-        /// The material of the mattes.
-        /// </summary>
-        [Tooltip("The material of the mattes.")]
-        [SerializeField]
-        private Material _material = null;
-
-        /// <summary>
-        /// The aspect ratio of the mattes.
-        /// </summary>
-        [Tooltip("The aspect ratio of the mattes.")]
-        [SerializeField]
-        private float _aspectRatio = 2.35f;
-
-        /// <summary>
-        /// The amount of seconds it takes to animate the mattes.
-        /// </summary>
-        [Tooltip("The amount of seconds it takes to animate the mattes.")]
-        public float animationDuration = 0.5f;
-
-        /// <summary>
-        /// The top letterbox matte.
-        /// </summary>
-        public RectTransform matteTop { get; private set; }
-
-        /// <summary>
-        /// The bottom letterbox matte.
-        /// </summary>
-        public RectTransform matteBottom { get; private set; }
 
         /// <summary>
         /// The color of the mattes.
@@ -62,11 +47,25 @@ namespace Zigurous.UI
         /// <summary>
         /// The material of the mattes.
         /// </summary>
+        [Tooltip("The material of the mattes.")]
+        [SerializeField]
+        private Material _material = null;
+
+        /// <summary>
+        /// The material of the mattes.
+        /// </summary>
         public Material material
         {
             get { return _material; }
             set { _material = value; UpdateStyles(); }
         }
+
+        /// <summary>
+        /// The aspect ratio of the mattes.
+        /// </summary>
+        [Tooltip("The aspect ratio of the mattes.")]
+        [SerializeField]
+        private float _aspectRatio = 2.35f;
 
         /// <summary>
         /// The aspect ratio of the mattes.
@@ -78,9 +77,10 @@ namespace Zigurous.UI
         }
 
         /// <summary>
-        /// The current height of the letterbox mattes.
+        /// The amount of seconds it takes to animate the mattes.
         /// </summary>
-        public float matteHeight { get; private set; }
+        [Tooltip("The amount of seconds it takes to animate the mattes.")]
+        public float animationDuration = 0.5f;
 
         /// <summary>
         /// The coroutine that animates the mattes.

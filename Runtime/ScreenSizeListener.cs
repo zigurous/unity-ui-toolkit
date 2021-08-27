@@ -13,9 +13,10 @@ namespace Zigurous.UI
         private static bool _isUnloading = false;
 
         /// <summary>
-        /// The current instance of the class.
-        /// The instance will be created if it does not already exist.
+        /// The current instance of the class. The instance will be created if
+        /// it does not already exist.
         /// </summary>
+        /// <returns>The instance of the class.</returns>
         public static ScreenSizeListener Instance
         {
             get
@@ -49,6 +50,7 @@ namespace Zigurous.UI
         /// Checks if the singleton has been initialized and an instance is
         /// available to use.
         /// </summary>
+        /// <returns>True if an instance is available, false otherwise.</returns>
         public static bool HasInstance => _instance != null;
 
         /// <summary>
@@ -59,17 +61,17 @@ namespace Zigurous.UI
         public delegate void OnResize(int width, int height);
 
         /// <summary>
-        /// The callback invoked when the screen size changes.
+        /// A callback invoked when the screen size changes.
         /// </summary>
         public OnResize resized;
 
         /// <summary>
-        /// The current width of the screen.
+        /// The current width of the screen (Read only).
         /// </summary>
         public int width { get; private set; }
 
         /// <summary>
-        /// The current height of the screen.
+        /// The current height of the screen (Read only).
         /// </summary>
         public int height { get; private set; }
 

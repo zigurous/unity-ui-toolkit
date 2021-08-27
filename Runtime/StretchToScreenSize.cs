@@ -12,7 +12,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The RectTransform component of the object.
         /// </summary>
-        private RectTransform _rectTransform;
+        public RectTransform rectTransform { get; private set; }
 
         /// <summary>
         /// Stretches the width of the RectTransform to match the screen width.
@@ -28,7 +28,7 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            _rectTransform = GetComponent<RectTransform>();
+            this.rectTransform = GetComponent<RectTransform>();
         }
 
         private void Start()
@@ -72,18 +72,18 @@ namespace Zigurous.UI
         {
             if (stretchWidth)
             {
-                _rectTransform.SetAnchorMinX(0.0f);
-                _rectTransform.SetAnchorMaxX(1.0f);
-                _rectTransform.SetLeft(0.0f);
-                _rectTransform.SetRight(0.0f);
+                this.rectTransform.SetAnchorMinX(0.0f);
+                this.rectTransform.SetAnchorMaxX(1.0f);
+                this.rectTransform.SetLeft(0.0f);
+                this.rectTransform.SetRight(0.0f);
             }
 
             if (stretchHeight)
             {
-                _rectTransform.SetAnchorMinY(0.0f);
-                _rectTransform.SetAnchorMaxY(1.0f);
-                _rectTransform.SetBottom(0.0f);
-                _rectTransform.SetTop(0.0f);
+                this.rectTransform.SetAnchorMinY(0.0f);
+                this.rectTransform.SetAnchorMaxY(1.0f);
+                this.rectTransform.SetBottom(0.0f);
+                this.rectTransform.SetTop(0.0f);
             }
         }
 

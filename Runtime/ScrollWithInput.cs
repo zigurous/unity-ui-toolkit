@@ -14,7 +14,7 @@ namespace Zigurous.UI
     public class ScrollWithInput : MonoBehaviour
     {
         /// <summary>
-        /// The ScrollRect component being scrolled.
+        /// The ScrollRect component being scrolled (Read only).
         /// </summary>
         public ScrollRect scrollRect { get; private set; }
 

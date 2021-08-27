@@ -15,19 +15,19 @@ namespace Zigurous.UI
     public class NavigationStack : MonoBehaviour
     {
         /// <summary>
-        /// The event system being tracked by the navigation stack.
+        /// The event system being tracked by the navigation stack (Read only).
         /// </summary>
         public EventSystem eventSystem { get; private set; }
 
         /// <summary>
-        /// The game objects added to the stack.
+        /// The game objects added to the stack (Read only).
         /// </summary>
         public Stack<GameObject> items { get; private set; }
 
         /// <summary>
-        /// The current selected game object at the top of the stack.
+        /// The current selected game object at the top of the stack (Read only).
         /// </summary>
-        public GameObject Top => this.items.Count > 0 ? this.items.Peek() : null;
+        public GameObject top => this.items.Count > 0 ? this.items.Peek() : null;
 
         /// <summary>
         /// The input action that handles backwards navigation by popping items

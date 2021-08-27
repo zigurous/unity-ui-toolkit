@@ -10,7 +10,7 @@ namespace Zigurous.UI
     {
         /// <summary>
         /// Fades the alpha of all graphics of the canvas to 100% over the given
-        /// <paramref name="duration"/>.
+        /// duration.
         /// </summary>
         /// <param name="canvas">The canvas to fade.</param>
         /// <param name="duration">The amount of seconds it takes to fade the graphics.</param>
@@ -26,7 +26,7 @@ namespace Zigurous.UI
 
         /// <summary>
         /// Fades the alpha of all graphics of the canvas to 0% over the given
-        /// <paramref name="duration"/>.
+        /// duration.
         /// </summary>
         /// <param name="canvas">The canvas to fade.</param>
         /// <param name="duration">The amount of seconds it takes to fade the graphics.</param>
