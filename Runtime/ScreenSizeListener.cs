@@ -99,6 +99,12 @@ namespace Zigurous.UI
             }
         }
 
+        private void OnEnable()
+        {
+            this.width = Screen.width;
+            this.height = Screen.height;
+        }
+
         private void Update()
         {
             if (Screen.width != this.width || Screen.height != this.height)
