@@ -28,7 +28,7 @@ namespace Zigurous.UI
         /// The sensitivity multiplier applied to the input.
         /// </summary>
         [Tooltip("The sensitivity multiplier applied to the input.")]
-        public float sensitivity = 1.0f;
+        public float sensitivity = 1f;
 
         private void Reset()
         {

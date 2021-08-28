@@ -64,7 +64,7 @@ namespace Zigurous.UI
         /// How quickly the ScrollRect scrolls.
         /// </summary>
         [Tooltip("How quickly the ScrollRect scrolls.")]
-        public float scrollSpeed = 10.0f;
+        public float scrollSpeed = 10f;
 
         /// <summary>
         /// Whether the ScrollRect is currently being scrolled manually. This
@@ -139,7 +139,7 @@ namespace Zigurous.UI
             float elementHeight = selection.rect.height;
             float maskHeight = this.scrollTransform.rect.height;
             float anchorPosition = this.scrollRect.content.anchoredPosition.y;
-            float selectionPosition = -selection.anchoredPosition.y - (elementHeight * (1.0f - selection.pivot.y));
+            float selectionPosition = -selection.anchoredPosition.y - (elementHeight * (1f - selection.pivot.y));
             float offset = GetScrollOffset(selectionPosition, anchorPosition, elementHeight, maskHeight);
 
             // Move the target scroll rect
@@ -151,7 +151,7 @@ namespace Zigurous.UI
         private void ScrollHorizontal(RectTransform selection)
         {
             // Calculate the scroll offset
-            float selectionPosition = -selection.anchoredPosition.x - (selection.rect.width * (1.0f - selection.pivot.x));
+            float selectionPosition = -selection.anchoredPosition.x - (selection.rect.width * (1f - selection.pivot.x));
             float elementWidth = selection.rect.width;
             float maskWidth = this.scrollTransform.rect.width;
             float anchorPosition = -this.scrollRect.content.anchoredPosition.x;
@@ -172,7 +172,7 @@ namespace Zigurous.UI
                 return (anchorPosition + maskLength) - (position + targetLength);
             }
 
-            return 0.0f;
+            return 0f;
         }
 
     }

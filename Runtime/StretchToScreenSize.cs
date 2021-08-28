@@ -72,18 +72,18 @@ namespace Zigurous.UI
         {
             if (stretchWidth)
             {
-                this.rectTransform.SetAnchorMinX(0.0f);
-                this.rectTransform.SetAnchorMaxX(1.0f);
-                this.rectTransform.SetLeft(0.0f);
-                this.rectTransform.SetRight(0.0f);
+                this.rectTransform.SetAnchorMinX(0f);
+                this.rectTransform.SetAnchorMaxX(1f);
+                this.rectTransform.SetLeft(0f);
+                this.rectTransform.SetRight(0f);
             }
 
             if (stretchHeight)
             {
-                this.rectTransform.SetAnchorMinY(0.0f);
-                this.rectTransform.SetAnchorMaxY(1.0f);
-                this.rectTransform.SetBottom(0.0f);
-                this.rectTransform.SetTop(0.0f);
+                this.rectTransform.SetAnchorMinY(0f);
+                this.rectTransform.SetAnchorMaxY(1f);
+                this.rectTransform.SetBottom(0f);
+                this.rectTransform.SetTop(0f);
             }
         }
 

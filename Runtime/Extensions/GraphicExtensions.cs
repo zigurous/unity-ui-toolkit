@@ -15,7 +15,7 @@ namespace Zigurous.UI
         /// <param name="ignoreTimeScale">Ignores the time scale when fading the graphic.</param>
         public static void FadeIn(this Graphic graphic, float duration, bool ignoreTimeScale = false)
         {
-            graphic.CrossFadeAlpha(1.0f, duration, ignoreTimeScale);
+            graphic.CrossFadeAlpha(1f, duration, ignoreTimeScale);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Zigurous.UI
         /// <param name="ignoreTimeScale">Ignores the time scale when fading the graphic.</param>
         public static void FadeOut(this Graphic graphic, float duration, bool ignoreTimeScale = false)
         {
-            graphic.CrossFadeAlpha(0.0f, duration, ignoreTimeScale);
+            graphic.CrossFadeAlpha(0f, duration, ignoreTimeScale);
         }
 
     }

@@ -20,7 +20,7 @@ namespace Zigurous.UI
             Graphic[] graphics = canvas.GetComponentsInChildren<Graphic>();
 
             for (int i = 0; i < graphics.Length; i++) {
-                graphics[i].CrossFadeAlpha(1.0f, duration, ignoreTimeScale);
+                graphics[i].CrossFadeAlpha(1f, duration, ignoreTimeScale);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Zigurous.UI
             Graphic[] graphics = canvas.GetComponentsInChildren<Graphic>();
 
             for (int i = 0; i < graphics.Length; i++) {
-                graphics[i].CrossFadeAlpha(0.0f, duration, ignoreTimeScale);
+                graphics[i].CrossFadeAlpha(0f, duration, ignoreTimeScale);
             }
         }
 
