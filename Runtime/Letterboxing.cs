@@ -21,11 +21,8 @@ namespace Zigurous.UI
         /// </summary>
         public float viewportHeight => this.camera.rect.height;
 
-        /// <summary>
-        /// The aspect ratio of the mattes.
-        /// </summary>
-        [Tooltip("The aspect ratio of the mattes.")]
         [SerializeField]
+        [Tooltip("The aspect ratio of the mattes.")]
         private float _aspectRatio = 2.35f;
 
         /// <summary>

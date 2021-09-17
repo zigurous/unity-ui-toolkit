@@ -28,11 +28,8 @@ namespace Zigurous.UI
         /// </summary>
         public float matteHeight { get; private set; }
 
-        /// <summary>
-        /// The color of the mattes.
-        /// </summary>
-        [Tooltip("The color of the mattes.")]
         [SerializeField]
+        [Tooltip("The color of the mattes.")]
         private Color _color = Color.black;
 
         /// <summary>
@@ -44,11 +41,8 @@ namespace Zigurous.UI
             set { _color = value; UpdateStyles(); }
         }
 
-        /// <summary>
-        /// The material of the mattes.
-        /// </summary>
-        [Tooltip("The material of the mattes.")]
         [SerializeField]
+        [Tooltip("The material of the mattes.")]
         private Material _material = null;
 
         /// <summary>
@@ -60,11 +54,8 @@ namespace Zigurous.UI
             set { _material = value; UpdateStyles(); }
         }
 
-        /// <summary>
-        /// The aspect ratio of the mattes.
-        /// </summary>
-        [Tooltip("The aspect ratio of the mattes.")]
         [SerializeField]
+        [Tooltip("The aspect ratio of the mattes.")]
         private float _aspectRatio = 2.35f;
 
         /// <summary>
