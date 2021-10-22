@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace Zigurous.UI
 {
@@ -29,12 +31,23 @@ namespace Zigurous.UI
         /// </summary>
         public GameObject top => items.Count > 0 ? items.Peek() : null;
 
+        #if ENABLE_INPUT_SYSTEM
         /// <summary>
         /// The input action that handles backwards navigation by popping items
         /// off the stack.
         /// </summary>
         [Tooltip("The input action that handles backwards navigation by popping items off the stack.")]
         public InputAction backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
+        #endif
+
+        #if ENABLE_LEGACY_INPUT_MANAGER
+        /// <summary>
+        /// The input button that handles backwards navigation by popping items
+        /// off the stack.
+        /// </summary>
+        [Tooltip("The input button that handles backwards navigation by popping items off the stack.")]
+        public string backNavigationInputButton = "Cancel";
+        #endif
 
         /// <summary>
         /// The root game object added to the bottom of the stack.
@@ -62,6 +75,7 @@ namespace Zigurous.UI
         [Tooltip("Allows for null game objects to be pushed onto the stack.")]
         public bool allowNullSelections = false;
 
+        #if ENABLE_INPUT_SYSTEM
         private void Reset()
         {
             backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
@@ -70,12 +84,16 @@ namespace Zigurous.UI
             backNavigationInput.AddBinding("<Gamepad>/select");
             backNavigationInput.AddBinding("<Gamepad>/buttonEast");
         }
+        #endif
 
         private void Awake()
         {
             items = new Stack<GameObject>(8);
             eventSystem = GetComponent<EventSystem>();
+
+            #if ENABLE_INPUT_SYSTEM
             backNavigationInput.performed += OnBack;
+            #endif
         }
 
         private void Start()
@@ -83,6 +101,7 @@ namespace Zigurous.UI
             Push(rootGameObject);
         }
 
+        #if ENABLE_INPUT_SYSTEM
         private void OnEnable()
         {
             backNavigationInput.Enable();
@@ -92,6 +111,16 @@ namespace Zigurous.UI
         {
             backNavigationInput.Disable();
         }
+        #endif
+
+        #if ENABLE_LEGACY_INPUT_MANAGER
+        private void Update()
+        {
+            if (Input.GetButtonDown(backNavigationInputButton)) {
+                Pop();
+            }
+        }
+        #endif
 
         /// <summary>
         /// Pushes a game object onto the stack, effectively navigating
@@ -151,12 +180,14 @@ namespace Zigurous.UI
             return top;
         }
 
+        #if ENABLE_INPUT_SYSTEM
         private void OnBack(InputAction.CallbackContext context)
         {
             if (context.performed) {
                 Pop();
             }
         }
+        #endif
 
     }
 

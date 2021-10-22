@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 using UnityEngine.UI;
 
 namespace Zigurous.UI
@@ -13,27 +15,6 @@ namespace Zigurous.UI
     [AddComponentMenu("Zigurous/UI/Navigation/Scroll To Selection")]
     public class ScrollToSelection : MonoBehaviour
     {
-        /// <summary>
-        /// A scroll direction.
-        /// </summary>
-        public enum ScrollDirection
-        {
-            /// <summary>
-            /// Scrolls in the y-axis.
-            /// </summary>
-            Vertical,
-
-            /// <summary>
-            /// Scrolls in the x-axis.
-            /// </summary>
-            Horizontal,
-
-            /// <summary>
-            /// Scrolls in both the x-axis and the y-axis.
-            /// </summary>
-            Both,
-        }
-
         /// <summary>
         /// The ScrollRect component being scrolled (Read only).
         /// </summary>
@@ -58,7 +39,7 @@ namespace Zigurous.UI
         /// The direction to scroll the ScrollRect.
         /// </summary>
         [Tooltip("The direction to scroll the ScrollRect.")]
-        public ScrollDirection scrollDirection;
+        public ScrollDirection scrollDirection = ScrollDirection.Vertical;
 
         /// <summary>
         /// How quickly the ScrollRect scrolls.
@@ -88,9 +69,54 @@ namespace Zigurous.UI
 
         private void CheckForManualScrolling()
         {
-            if (Mouse.current != null && Mouse.current.scroll.y.IsActuated()) {
-                manualScrolling = true;
+            #if ENABLE_INPUT_SYSTEM
+            if (Mouse.current != null)
+            {
+                switch (scrollDirection)
+                {
+                    case ScrollDirection.Horizontal:
+                        if (Mouse.current.scroll.x.IsActuated()) {
+                            manualScrolling = true;
+                        }
+                        break;
+
+                    case ScrollDirection.Vertical:
+                        if (Mouse.current.scroll.y.IsActuated()) {
+                            manualScrolling = true;
+                        }
+                        break;
+
+                    case ScrollDirection.Both:
+                        if (Mouse.current.scroll.x.IsActuated() || Mouse.current.scroll.y.IsActuated()) {
+                            manualScrolling = true;
+                        }
+                        break;
+                }
             }
+            #endif
+
+            #if ENABLE_LEGACY_INPUT_MANAGER
+            switch (scrollDirection)
+            {
+                case ScrollDirection.Horizontal:
+                    if (Input.mouseScrollDelta.x != 0f) {
+                        manualScrolling = true;
+                    }
+                    break;
+
+                case ScrollDirection.Vertical:
+                    if (Input.mouseScrollDelta.y != 0f) {
+                        manualScrolling = true;
+                    }
+                    break;
+
+                case ScrollDirection.Both:
+                    if (Input.mouseScrollDelta.x != 0f || Input.mouseScrollDelta.y != 0f) {
+                        manualScrolling = true;
+                    }
+                    break;
+            }
+            #endif
         }
 
         private void SetSelectedGameObject()
