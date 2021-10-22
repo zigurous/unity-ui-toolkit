@@ -87,14 +87,14 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            StretchToScreenSize stretch = this.gameObject.AddComponent<StretchToScreenSize>();
+            StretchToScreenSize stretch = gameObject.AddComponent<StretchToScreenSize>();
             stretch.hideFlags = HideFlags.HideInInspector;
             stretch.stretchWidth = true;
             stretch.stretchHeight = true;
 
-            this.matteBottom = CreateMatte();
-            this.matteTop = CreateMatte();
-            this.matteTop.localScale = new Vector3(1f, -1f, 1f);
+            matteBottom = CreateMatte();
+            matteTop = CreateMatte();
+            matteTop.localScale = new Vector3(1f, -1f, 1f);
 
             SetDesiredHeight(0f);
         }
@@ -102,7 +102,7 @@ namespace Zigurous.UI
         private RectTransform CreateMatte()
         {
             GameObject matte = new GameObject("Matte");
-            matte.transform.parent = this.transform;
+            matte.transform.parent = transform;
 
             RectTransform matteRect = matte.AddComponent<RectTransform>();
             matteRect.SetHeight(0f);
@@ -110,8 +110,8 @@ namespace Zigurous.UI
             matte.AddComponent<CanvasRenderer>();
 
             Image graphic = matte.AddComponent<Image>();
-            graphic.color = this.color;
-            graphic.material = this.material;
+            graphic.color = color;
+            graphic.material = material;
 
             StretchToScreenSize stretch = matte.AddComponent<StretchToScreenSize>();
             stretch.stretchWidth = true;
@@ -165,12 +165,12 @@ namespace Zigurous.UI
 
         private void UpdateMattes()
         {
-            UpdateMattes(animated: this.animationDuration > 0f);
+            UpdateMattes(animated: animationDuration > 0f);
         }
 
         private void UpdateMattes(bool animated)
         {
-            if (!this.gameObject.activeInHierarchy)
+            if (!gameObject.activeInHierarchy)
             {
                 SetDesiredHeight(0f);
                 return;
@@ -184,7 +184,7 @@ namespace Zigurous.UI
                     StopCoroutine(_animation);
                 }
 
-                _animation = StartCoroutine(Animate(this.matteHeight, desiredHeight));
+                _animation = StartCoroutine(Animate(matteHeight, desiredHeight));
             }
             else
             {
@@ -196,9 +196,9 @@ namespace Zigurous.UI
         {
             float elapsed = 0f;
 
-            while (elapsed < this.animationDuration)
+            while (elapsed < animationDuration)
             {
-                float percent = Mathf.Clamp01(elapsed / this.animationDuration);
+                float percent = Mathf.Clamp01(elapsed / animationDuration);
                 float height = Mathf.SmoothStep(currentHeight, desiredHeight, percent);
 
                 SetDesiredHeight(height);
@@ -212,7 +212,7 @@ namespace Zigurous.UI
 
         private float CalculateMatteHeight()
         {
-            if (!this.enabled) {
+            if (!enabled) {
                 return 0f;
             }
 
@@ -227,7 +227,7 @@ namespace Zigurous.UI
                 screenHeight = ScreenSizeListener.Instance.height;
             }
 
-            float letterbox = screenWidth / this.aspectRatio;
+            float letterbox = screenWidth / aspectRatio;
             float height = (screenHeight - letterbox) / 2f;
 
             return float.IsNaN(height) ? 0f : height;
@@ -235,31 +235,31 @@ namespace Zigurous.UI
 
         private void SetDesiredHeight(float height)
         {
-            this.matteHeight = height;
+            matteHeight = height;
 
-            if (this.matteTop != null) {
-                this.matteTop.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0f, height);
+            if (matteTop != null) {
+                matteTop.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0f, height);
             }
 
-            if (this.matteBottom != null) {
-                this.matteBottom.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0f, height);
+            if (matteBottom != null) {
+                matteBottom.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0f, height);
             }
         }
 
         private void UpdateStyles()
         {
-            if (this.matteTop != null)
+            if (matteTop != null)
             {
-                Graphic graphic = this.matteTop.GetComponent<Graphic>();
-                graphic.color = this.color;
-                graphic.material = this.material;
+                Graphic graphic = matteTop.GetComponent<Graphic>();
+                graphic.color = color;
+                graphic.material = material;
             }
 
-            if (this.matteBottom != null)
+            if (matteBottom != null)
             {
-                Graphic graphic = this.matteBottom.GetComponent<Graphic>();
-                graphic.color = this.color;
-                graphic.material = this.material;
+                Graphic graphic = matteBottom.GetComponent<Graphic>();
+                graphic.color = color;
+                graphic.material = material;
             }
         }
 

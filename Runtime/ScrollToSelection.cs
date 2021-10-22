@@ -75,8 +75,8 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            this.scrollRect = GetComponent<ScrollRect>();
-            this.scrollTransform = this.scrollRect.GetComponent<RectTransform>();
+            scrollRect = GetComponent<ScrollRect>();
+            scrollTransform = scrollRect.GetComponent<RectTransform>();
         }
 
         private void Update()
@@ -89,7 +89,7 @@ namespace Zigurous.UI
         private void CheckForManualScrolling()
         {
             if (Mouse.current != null && Mouse.current.scroll.y.IsActuated()) {
-                this.manualScrolling = true;
+                manualScrolling = true;
             }
         }
 
@@ -101,34 +101,34 @@ namespace Zigurous.UI
                 return;
             }
 
-            if (eventSystem.currentSelectedGameObject != this.selectedGameObject &&
-                eventSystem.currentSelectedGameObject.transform.parent == this.scrollRect.content)
+            if (eventSystem.currentSelectedGameObject != selectedGameObject &&
+                eventSystem.currentSelectedGameObject.transform.parent == scrollRect.content)
             {
-                this.selectedGameObject = eventSystem.currentSelectedGameObject;
-                this.selectedTransform = this.selectedGameObject.GetComponent<RectTransform>();
-                this.manualScrolling = false;
+                selectedGameObject = eventSystem.currentSelectedGameObject;
+                selectedTransform = selectedGameObject.GetComponent<RectTransform>();
+                manualScrolling = false;
             }
         }
 
         private void SetScrollPosition()
         {
-            if (this.selectedTransform == null || this.manualScrolling) {
+            if (selectedTransform == null || manualScrolling) {
                 return;
             }
 
-            switch (this.scrollDirection)
+            switch (scrollDirection)
             {
                 case ScrollDirection.Vertical:
-                    ScrollVertical(this.selectedTransform);
+                    ScrollVertical(selectedTransform);
                     break;
 
                 case ScrollDirection.Horizontal:
-                    ScrollHorizontal(this.selectedTransform);
+                    ScrollHorizontal(selectedTransform);
                     break;
 
                 case ScrollDirection.Both:
-                    ScrollVertical(this.selectedTransform);
-                    ScrollHorizontal(this.selectedTransform);
+                    ScrollVertical(selectedTransform);
+                    ScrollHorizontal(selectedTransform);
                     break;
             }
         }
@@ -137,15 +137,15 @@ namespace Zigurous.UI
         {
             // Calculate the scroll offset
             float elementHeight = selection.rect.height;
-            float maskHeight = this.scrollTransform.rect.height;
-            float anchorPosition = this.scrollRect.content.anchoredPosition.y;
+            float maskHeight = scrollTransform.rect.height;
+            float anchorPosition = scrollRect.content.anchoredPosition.y;
             float selectionPosition = -selection.anchoredPosition.y - (elementHeight * (1f - selection.pivot.y));
             float offset = GetScrollOffset(selectionPosition, anchorPosition, elementHeight, maskHeight);
 
             // Move the target scroll rect
-            float position = this.scrollRect.verticalNormalizedPosition;
-            position = Mathf.Clamp01(position + (offset / this.scrollRect.content.rect.height) * Time.unscaledDeltaTime * this.scrollSpeed);
-            this.scrollRect.verticalNormalizedPosition = position;
+            float position = scrollRect.verticalNormalizedPosition;
+            position = Mathf.Clamp01(position + (offset / scrollRect.content.rect.height) * Time.unscaledDeltaTime * scrollSpeed);
+            scrollRect.verticalNormalizedPosition = position;
         }
 
         private void ScrollHorizontal(RectTransform selection)
@@ -153,14 +153,14 @@ namespace Zigurous.UI
             // Calculate the scroll offset
             float selectionPosition = -selection.anchoredPosition.x - (selection.rect.width * (1f - selection.pivot.x));
             float elementWidth = selection.rect.width;
-            float maskWidth = this.scrollTransform.rect.width;
-            float anchorPosition = -this.scrollRect.content.anchoredPosition.x;
+            float maskWidth = scrollTransform.rect.width;
+            float anchorPosition = -scrollRect.content.anchoredPosition.x;
             float offset = -GetScrollOffset(selectionPosition, anchorPosition, elementWidth, maskWidth);
 
             // Move the target scroll rect
-            float position = this.scrollRect.horizontalNormalizedPosition;
-            position = Mathf.Clamp01(position + (offset / this.scrollRect.content.rect.width) * Time.unscaledDeltaTime * this.scrollSpeed);
-            this.scrollRect.horizontalNormalizedPosition = position;
+            float position = scrollRect.horizontalNormalizedPosition;
+            position = Mathf.Clamp01(position + (offset / scrollRect.content.rect.width) * Time.unscaledDeltaTime * scrollSpeed);
+            scrollRect.horizontalNormalizedPosition = position;
         }
 
         private float GetScrollOffset(float position, float anchorPosition, float targetLength, float maskLength)

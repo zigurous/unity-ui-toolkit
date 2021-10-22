@@ -32,25 +32,25 @@ namespace Zigurous.UI
 
         private void Reset()
         {
-            this.scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
-            this.scrollInput.AddBinding("<Gamepad>/rightStick");
-            this.scrollInput.AddBinding("<Gamepad>/leftStick");
-            this.scrollInput.AddBinding("<Gamepad>/dpad");
+            scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
+            scrollInput.AddBinding("<Gamepad>/rightStick");
+            scrollInput.AddBinding("<Gamepad>/leftStick");
+            scrollInput.AddBinding("<Gamepad>/dpad");
         }
 
         private void Awake()
         {
-            this.scrollRect = GetComponent<ScrollRect>();
+            scrollRect = GetComponent<ScrollRect>();
         }
 
         private void OnEnable()
         {
-            this.scrollInput.Enable();
+            scrollInput.Enable();
         }
 
         private void OnDisable()
         {
-            this.scrollInput.Disable();
+            scrollInput.Disable();
         }
 
         private void Update()
@@ -61,11 +61,11 @@ namespace Zigurous.UI
                 return;
             }
 
-            if (eventSystem.currentSelectedGameObject == this.scrollRect.gameObject ||
-                eventSystem.currentSelectedGameObject.transform.parent == this.scrollRect.content)
+            if (eventSystem.currentSelectedGameObject == scrollRect.gameObject ||
+                eventSystem.currentSelectedGameObject.transform.parent == scrollRect.content)
             {
-                Vector2 input = this.scrollInput.ReadValue<Vector2>();
-                this.scrollRect.normalizedPosition += input * this.sensitivity * Time.unscaledDeltaTime;
+                Vector2 input = scrollInput.ReadValue<Vector2>();
+                scrollRect.normalizedPosition += input * sensitivity * Time.unscaledDeltaTime;
             }
         }
 

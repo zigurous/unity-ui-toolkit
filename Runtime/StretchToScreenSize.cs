@@ -28,7 +28,7 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            this.rectTransform = GetComponent<RectTransform>();
+            rectTransform = GetComponent<RectTransform>();
         }
 
         private void Start()
@@ -50,7 +50,7 @@ namespace Zigurous.UI
 
         private void OnScreenResize(int width, int height)
         {
-            if (this.enabled) {
+            if (enabled) {
                 Stretch();
             }
         }
@@ -60,7 +60,7 @@ namespace Zigurous.UI
         /// </summary>
         public void Stretch()
         {
-            Stretch(this.stretchWidth, this.stretchHeight);
+            Stretch(stretchWidth, stretchHeight);
         }
 
         /// <summary>
@@ -72,18 +72,18 @@ namespace Zigurous.UI
         {
             if (stretchWidth)
             {
-                this.rectTransform.SetAnchorMinX(0f);
-                this.rectTransform.SetAnchorMaxX(1f);
-                this.rectTransform.SetLeft(0f);
-                this.rectTransform.SetRight(0f);
+                rectTransform.SetAnchorMinX(0f);
+                rectTransform.SetAnchorMaxX(1f);
+                rectTransform.SetLeft(0f);
+                rectTransform.SetRight(0f);
             }
 
             if (stretchHeight)
             {
-                this.rectTransform.SetAnchorMinY(0f);
-                this.rectTransform.SetAnchorMaxY(1f);
-                this.rectTransform.SetBottom(0f);
-                this.rectTransform.SetTop(0f);
+                rectTransform.SetAnchorMinY(0f);
+                rectTransform.SetAnchorMaxY(1f);
+                rectTransform.SetBottom(0f);
+                rectTransform.SetTop(0f);
             }
         }
 

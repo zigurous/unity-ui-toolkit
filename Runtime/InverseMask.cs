@@ -107,7 +107,7 @@ namespace Zigurous.UI
             {
                 Image image = images[i];
 
-                if (image.transform != this.transform) {
+                if (image.transform != transform) {
                     image.material = InverseMask.contentMaterial;
                 }
             }
@@ -123,7 +123,7 @@ namespace Zigurous.UI
             {
                 Image image = images[i];
 
-                if (image.transform != this.transform) {
+                if (image.transform != transform) {
                     image.material = null;
                 }
             }

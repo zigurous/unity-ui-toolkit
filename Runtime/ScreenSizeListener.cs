@@ -68,7 +68,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The current size of the screen (Read only).
         /// </summary>
-        public Vector2Int size => new Vector2Int(this.width, this.height);
+        public Vector2Int size => new Vector2Int(width, height);
 
         /// <summary>
         /// The current width of the screen (Read only).
@@ -90,8 +90,8 @@ namespace Zigurous.UI
             {
                 _instance = this;
 
-                this.width = Screen.width;
-                this.height = Screen.height;
+                width = Screen.width;
+                height = Screen.height;
             }
             else {
                 Destroy(this);
@@ -100,7 +100,7 @@ namespace Zigurous.UI
 
         private void OnDestroy()
         {
-            this.resized = null;
+            resized = null;
 
             _isUnloading = true;
 
@@ -111,13 +111,13 @@ namespace Zigurous.UI
 
         private void Update()
         {
-            if (Screen.width != this.width || Screen.height != this.height)
+            if (Screen.width != width || Screen.height != height)
             {
-                this.width = Screen.width;
-                this.height = Screen.height;
+                width = Screen.width;
+                height = Screen.height;
 
-                if (this.resized != null) {
-                    this.resized.Invoke(this.width, this.height);
+                if (resized != null) {
+                    resized.Invoke(width, height);
                 }
             }
         }

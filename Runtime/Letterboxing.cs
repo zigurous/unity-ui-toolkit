@@ -19,7 +19,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The current height of the viewport (Read only).
         /// </summary>
-        public float viewportHeight => this.camera.rect.height;
+        public float viewportHeight => camera.rect.height;
 
         [SerializeField]
         [Tooltip("The aspect ratio of the mattes.")]
@@ -54,7 +54,7 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            this.camera = GetComponent<Camera>();
+            camera = GetComponent<Camera>();
         }
 
         private void Start()
@@ -101,12 +101,12 @@ namespace Zigurous.UI
 
         private void UpdateViewport()
         {
-            UpdateViewport(animated: this.animationDuration > 0f);
+            UpdateViewport(animated: animationDuration > 0f);
         }
 
         private void UpdateViewport(bool animated)
         {
-            if (!this.gameObject.activeInHierarchy)
+            if (!gameObject.activeInHierarchy)
             {
                 SetViewportHeight(1f);
                 return;
@@ -120,7 +120,7 @@ namespace Zigurous.UI
                     StopCoroutine(_animation);
                 }
 
-                _animation = StartCoroutine(Animate(this.viewportHeight, desiredHeight));
+                _animation = StartCoroutine(Animate(viewportHeight, desiredHeight));
             }
             else
             {
@@ -132,9 +132,9 @@ namespace Zigurous.UI
         {
             float elapsed = 0f;
 
-            while (elapsed < this.animationDuration)
+            while (elapsed < animationDuration)
             {
-                float percent = Mathf.Clamp01(elapsed / this.animationDuration);
+                float percent = Mathf.Clamp01(elapsed / animationDuration);
                 float height = Mathf.SmoothStep(currentHeight, desiredHeight, percent);
 
                 SetViewportHeight(height);
@@ -148,7 +148,7 @@ namespace Zigurous.UI
 
         private float CalculateViewportHeight()
         {
-            if (!this.enabled) {
+            if (!enabled) {
                 return 1f;
             }
 
@@ -163,7 +163,7 @@ namespace Zigurous.UI
                 screenHeight = ScreenSizeListener.Instance.height;
             }
 
-            float letterbox = screenWidth / this.aspectRatio;
+            float letterbox = screenWidth / aspectRatio;
             float height = (screenHeight - letterbox) / 2f;
             float viewport = 1f - ((height / screenHeight) * 2f);
 
@@ -172,11 +172,11 @@ namespace Zigurous.UI
 
         private void SetViewportHeight(float height)
         {
-            Rect rect = this.camera.rect;
+            Rect rect = camera.rect;
             rect.height = height;
             rect.y = (1f - height) / 2f;
 
-            this.camera.rect = rect;
+            camera.rect = rect;
         }
 
     }

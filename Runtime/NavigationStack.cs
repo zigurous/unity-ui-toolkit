@@ -27,7 +27,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The current selected game object at the top of the stack (Read only).
         /// </summary>
-        public GameObject top => this.items.Count > 0 ? this.items.Peek() : null;
+        public GameObject top => items.Count > 0 ? items.Peek() : null;
 
         /// <summary>
         /// The input action that handles backwards navigation by popping items
@@ -64,33 +64,33 @@ namespace Zigurous.UI
 
         private void Reset()
         {
-            this.backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
-            this.backNavigationInput.AddBinding("<Keyboard>/escape");
-            this.backNavigationInput.AddBinding("<Keyboard>/backspace");
-            this.backNavigationInput.AddBinding("<Gamepad>/select");
-            this.backNavigationInput.AddBinding("<Gamepad>/buttonEast");
+            backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
+            backNavigationInput.AddBinding("<Keyboard>/escape");
+            backNavigationInput.AddBinding("<Keyboard>/backspace");
+            backNavigationInput.AddBinding("<Gamepad>/select");
+            backNavigationInput.AddBinding("<Gamepad>/buttonEast");
         }
 
         private void Awake()
         {
-            this.items = new Stack<GameObject>(8);
-            this.eventSystem = GetComponent<EventSystem>();
-            this.backNavigationInput.performed += OnBack;
+            items = new Stack<GameObject>(8);
+            eventSystem = GetComponent<EventSystem>();
+            backNavigationInput.performed += OnBack;
         }
 
         private void Start()
         {
-            Push(this.rootGameObject);
+            Push(rootGameObject);
         }
 
         private void OnEnable()
         {
-            this.backNavigationInput.Enable();
+            backNavigationInput.Enable();
         }
 
         private void OnDisable()
         {
-            this.backNavigationInput.Disable();
+            backNavigationInput.Disable();
         }
 
         /// <summary>
@@ -100,14 +100,14 @@ namespace Zigurous.UI
         /// <param name="selected">The game object to push onto the stack.</param>
         public void Push(GameObject selected)
         {
-            if (selected != null || this.allowNullSelections)
+            if (selected != null || allowNullSelections)
             {
-                if (this.setActiveState && selected != null) {
+                if (setActiveState && selected != null) {
                     selected.SetActive(true);
                 }
 
-                this.eventSystem.SetSelectedGameObject(selected);
-                this.items.Push(selected);
+                eventSystem.SetSelectedGameObject(selected);
+                items.Push(selected);
             }
         }
 
@@ -118,34 +118,34 @@ namespace Zigurous.UI
         /// <returns>The game object that was popped off the stack.</returns>
         public GameObject Pop()
         {
-            if (this.items.Count == 0) {
+            if (items.Count == 0) {
                 return null;
             }
 
             GameObject top = null;
 
             // Pop off the top of the stack
-            if (this.items.Count > 1 || this.allowEmptyStack)
+            if (items.Count > 1 || allowEmptyStack)
             {
-                top = this.items.Pop();
+                top = items.Pop();
 
-                if (this.setActiveState && top != null) {
+                if (setActiveState && top != null) {
                     top.SetActive(false);
                 }
 
-                this.eventSystem.SetSelectedGameObject(null);
+                eventSystem.SetSelectedGameObject(null);
             }
 
             // Set the previous item to be active
-            if (this.items.Count > 0)
+            if (items.Count > 0)
             {
-                GameObject previous = this.items.Peek();
+                GameObject previous = items.Peek();
 
-                if (this.setActiveState && previous != null) {
+                if (setActiveState && previous != null) {
                     previous.SetActive(true);
                 }
 
-                this.eventSystem.SetSelectedGameObject(previous);
+                eventSystem.SetSelectedGameObject(previous);
             }
 
             return top;
