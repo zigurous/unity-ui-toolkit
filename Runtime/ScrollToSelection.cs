@@ -93,9 +93,7 @@ namespace Zigurous.UI
                         break;
                 }
             }
-            #endif
-
-            #if ENABLE_LEGACY_INPUT_MANAGER
+            #elif ENABLE_LEGACY_INPUT_MANAGER
             switch (scrollDirection)
             {
                 case ScrollDirection.Horizontal:

@@ -32,21 +32,23 @@ namespace Zigurous.UI
         public GameObject top => items.Count > 0 ? items.Peek() : null;
 
         #if ENABLE_INPUT_SYSTEM
+
         /// <summary>
         /// The input action that handles backwards navigation by popping items
         /// off the stack.
         /// </summary>
         [Tooltip("The input action that handles backwards navigation by popping items off the stack.")]
         public InputAction backNavigationInput = new InputAction("MenuBackNavigation", InputActionType.Button);
-        #endif
 
-        #if ENABLE_LEGACY_INPUT_MANAGER
+        #elif ENABLE_LEGACY_INPUT_MANAGER
+
         /// <summary>
         /// The input button that handles backwards navigation by popping items
         /// off the stack.
         /// </summary>
         [Tooltip("The input button that handles backwards navigation by popping items off the stack.")]
         public string backNavigationInputButton = "Cancel";
+
         #endif
 
         /// <summary>

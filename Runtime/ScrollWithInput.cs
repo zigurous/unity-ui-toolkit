@@ -27,14 +27,15 @@ namespace Zigurous.UI
         public ScrollDirection scrollDirection = ScrollDirection.Vertical;
 
         #if ENABLE_INPUT_SYSTEM
+
         /// <summary>
         /// The input action that handles scrolling.
         /// </summary>
         [Tooltip("The input action that handles scrolling.")]
         public InputAction scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
-        #endif
 
-        #if ENABLE_LEGACY_INPUT_MANAGER
+        #elif ENABLE_LEGACY_INPUT_MANAGER
+
         /// <summary>
         /// The input axis that handles scrolling in the y-axis.
         /// </summary>
@@ -46,6 +47,7 @@ namespace Zigurous.UI
         /// </summary>
         [Tooltip("The input axis that handles scrolling in the x-axis.")]
         public string scrollInputAxisX = "";
+
         #endif
 
         /// <summary>
@@ -94,9 +96,7 @@ namespace Zigurous.UI
 
                 #if ENABLE_INPUT_SYSTEM
                 input = scrollInput.ReadValue<Vector2>();
-                #endif
-
-                #if ENABLE_LEGACY_INPUT_MANAGER
+                #elif ENABLE_LEGACY_INPUT_MANAGER
                 if (scrollInputAxisY != "") {
                     input.y = Input.GetAxis(scrollInputAxisY);
                 }
