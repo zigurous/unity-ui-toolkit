@@ -13,6 +13,22 @@ namespace Zigurous.UI
     [AddComponentMenu("Zigurous/UI/Misc/Cinematic Bars")]
     public sealed class CinematicBars : MonoBehaviour
     {
+        [SerializeField]
+        [Tooltip("The color of the mattes.")]
+        private Color m_Color = Color.black;
+
+        [SerializeField]
+        [Tooltip("The material of the mattes.")]
+        private Material m_Material = null;
+
+        [SerializeField]
+        [Tooltip("The aspect ratio of the mattes.")]
+        private float m_AspectRatio = 2.35f;
+
+        [SerializeField]
+        [Tooltip("The amount of seconds it takes to animate the mattes.")]
+        private float m_AnimationDuration = 0.5f;
+
         /// <summary>
         /// The top letterbox matte (Read only).
         /// </summary>
@@ -28,61 +44,49 @@ namespace Zigurous.UI
         /// </summary>
         public float matteHeight { get; private set; }
 
-        [SerializeField]
-        [Tooltip("The color of the mattes.")]
-        private Color _color = Color.black;
-
         /// <summary>
         /// The color of the mattes.
         /// </summary>
         public Color color
         {
-            get { return _color; }
-            set { _color = value; UpdateStyles(); }
+            get => m_Color;
+            set { m_Color = value; UpdateStyles(); }
         }
-
-        [SerializeField]
-        [Tooltip("The material of the mattes.")]
-        private Material _material = null;
 
         /// <summary>
         /// The material of the mattes.
         /// </summary>
         public Material material
         {
-            get { return _material; }
-            set { _material = value; UpdateStyles(); }
+            get => m_Material;
+            set { m_Material = value; UpdateStyles(); }
         }
-
-        [SerializeField]
-        [Tooltip("The aspect ratio of the mattes.")]
-        private float _aspectRatio = 2.35f;
 
         /// <summary>
         /// The aspect ratio of the mattes.
         /// </summary>
         public float aspectRatio
         {
-            get { return _aspectRatio; }
-            set { _aspectRatio = value; UpdateMattes(); }
+            get => m_AspectRatio;
+            set { m_AspectRatio = value; UpdateMattes(); }
         }
 
         /// <summary>
         /// The amount of seconds it takes to animate the mattes.
         /// </summary>
-        [Tooltip("The amount of seconds it takes to animate the mattes.")]
-        public float animationDuration = 0.5f;
+        public float animationDuration
+        {
+            get => m_AnimationDuration;
+            set => m_AnimationDuration = value;
+        }
 
         /// <summary>
         /// The coroutine that animates the mattes.
         /// </summary>
-        private Coroutine _animation;
+        private Coroutine coroutine;
 
         #if UNITY_EDITOR
-        /// <summary>
-        /// Whether the current settings have been invalidated.
-        /// </summary>
-        private bool _invalidated;
+        private bool invalidated;
         #endif
 
         private void Awake()
@@ -132,10 +136,12 @@ namespace Zigurous.UI
             }
         }
 
+        #if UNITY_EDITOR
         private void OnValidate()
         {
-            _invalidated = true;
+            invalidated = true;
         }
+        #endif
 
         private void OnEnable()
         {
@@ -152,16 +158,18 @@ namespace Zigurous.UI
             UpdateMattes(animated: false);
         }
 
+        #if UNITY_EDITOR
         private void Update()
         {
-            if (_invalidated)
+            if (invalidated)
             {
                 UpdateStyles();
                 UpdateMattes(animated: false);
 
-                _invalidated = false;
+                invalidated = false;
             }
         }
+        #endif
 
         private void UpdateMattes()
         {
@@ -180,11 +188,11 @@ namespace Zigurous.UI
 
             if (animated)
             {
-                if (_animation != null) {
-                    StopCoroutine(_animation);
+                if (coroutine != null) {
+                    StopCoroutine(coroutine);
                 }
 
-                _animation = StartCoroutine(Animate(matteHeight, desiredHeight));
+                coroutine = StartCoroutine(Animate(matteHeight, desiredHeight));
             }
             else
             {

@@ -8,9 +8,9 @@ namespace Zigurous.UI
     [AddComponentMenu("")]
     public sealed class ScreenSizeListener : MonoBehaviour
     {
-        private static volatile ScreenSizeListener _instance;
-        private static object _lock = new object();
-        private static bool _isUnloading = false;
+        private static volatile ScreenSizeListener instance;
+        private static object lockObject = new object();
+        private static bool isUnloading = false;
 
         /// <summary>
         /// The current instance of the class. The instance will be created if
@@ -21,17 +21,17 @@ namespace Zigurous.UI
         {
             get
             {
-                if (_isUnloading) {
+                if (isUnloading) {
                     return null;
                 }
 
-                if (_instance == null)
+                if (instance == null)
                 {
-                    lock (_lock)
+                    lock (lockObject)
                     {
-                        _instance = FindObjectOfType<ScreenSizeListener>();
+                        instance = FindObjectOfType<ScreenSizeListener>();
 
-                        if (_instance == null)
+                        if (instance == null)
                         {
                             GameObject singleton = new GameObject();
                             singleton.name = typeof(ScreenSizeListener).Name;
@@ -42,7 +42,7 @@ namespace Zigurous.UI
                     }
                 }
 
-                return _instance;
+                return instance;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Zigurous.UI
         /// available to use.
         /// </summary>
         /// <returns>True if an instance is available, false otherwise.</returns>
-        public static bool HasInstance => _instance != null;
+        public static bool HasInstance => instance != null;
 
         /// <summary>
         /// A function delegate invoked when the screen size changes.
@@ -84,11 +84,11 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            _isUnloading = false;
+            isUnloading = false;
 
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = this;
+                instance = this;
 
                 width = Screen.width;
                 height = Screen.height;
@@ -102,10 +102,10 @@ namespace Zigurous.UI
         {
             resized = null;
 
-            _isUnloading = true;
+            isUnloading = true;
 
-            if (_instance == this) {
-                _instance = null;
+            if (instance == this) {
+                instance = null;
             }
         }
 

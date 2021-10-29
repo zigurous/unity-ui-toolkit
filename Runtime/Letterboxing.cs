@@ -11,6 +11,14 @@ namespace Zigurous.UI
     [AddComponentMenu("Zigurous/UI/Misc/Letterboxing")]
     public sealed class Letterboxing : MonoBehaviour
     {
+        [SerializeField]
+        [Tooltip("The aspect ratio of the mattes.")]
+        private float m_AspectRatio = 2.35f;
+
+        [SerializeField]
+        [Tooltip("The amount of seconds it takes to animate the mattes.")]
+        private float m_AnimationDuration = 0.5f;
+
         /// <summary>
         /// The camera being letterboxed (Read only).
         /// </summary>
@@ -21,35 +29,31 @@ namespace Zigurous.UI
         /// </summary>
         public float viewportHeight => camera.rect.height;
 
-        [SerializeField]
-        [Tooltip("The aspect ratio of the mattes.")]
-        private float _aspectRatio = 2.35f;
-
         /// <summary>
         /// The aspect ratio of the mattes.
         /// </summary>
         public float aspectRatio
         {
-            get { return _aspectRatio; }
-            set { _aspectRatio = value; UpdateViewport(); }
+            get => m_AspectRatio;
+            set { m_AspectRatio = value; UpdateViewport(); }
         }
 
         /// <summary>
         /// The amount of seconds it takes to animate the mattes.
         /// </summary>
-        [Tooltip("The amount of seconds it takes to animate the mattes.")]
-        public float animationDuration = 0.5f;
+        public float animationDuration
+        {
+            get => m_AnimationDuration;
+            set => m_AnimationDuration = value;
+        }
 
         /// <summary>
         /// The coroutine that animates the mattes.
         /// </summary>
-        private Coroutine _animation;
+        private Coroutine coroutine;
 
         #if UNITY_EDITOR
-        /// <summary>
-        /// Whether the current settings have been invalidated.
-        /// </summary>
-        private bool _invalidated;
+        private bool invalidated;
         #endif
 
         private void Awake()
@@ -69,10 +73,12 @@ namespace Zigurous.UI
             }
         }
 
+        #if UNITY_EDITOR
         private void OnValidate()
         {
-            _invalidated = true;
+            invalidated = true;
         }
+        #endif
 
         private void OnEnable()
         {
@@ -89,15 +95,17 @@ namespace Zigurous.UI
             UpdateViewport(animated: false);
         }
 
+        #if UNITY_EDITOR
         private void Update()
         {
-            if (_invalidated)
+            if (invalidated)
             {
                 UpdateViewport(animated: false);
 
-                _invalidated = false;
+                invalidated = false;
             }
         }
+        #endif
 
         private void UpdateViewport()
         {
@@ -116,11 +124,11 @@ namespace Zigurous.UI
 
             if (animated)
             {
-                if (_animation != null) {
-                    StopCoroutine(_animation);
+                if (coroutine != null) {
+                    StopCoroutine(coroutine);
                 }
 
-                _animation = StartCoroutine(Animate(viewportHeight, desiredHeight));
+                coroutine = StartCoroutine(Animate(viewportHeight, desiredHeight));
             }
             else
             {

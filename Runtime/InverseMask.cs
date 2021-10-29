@@ -12,8 +12,8 @@ namespace Zigurous.UI
     [AddComponentMenu("Zigurous/UI/Effects/Inverse Mask")]
     public sealed class InverseMask : MonoBehaviour
     {
-        private static Material _cutoutMaterial;
-        private static Material _contentMaterial;
+        private static Material m_CutoutMaterial;
+        private static Material m_ContentMaterial;
 
         /// <summary>
         /// The shared material applied to an image that is masking another
@@ -23,22 +23,22 @@ namespace Zigurous.UI
         {
             get
             {
-                if (_cutoutMaterial == null)
+                if (m_CutoutMaterial == null)
                 {
-                    _cutoutMaterial = new Material(Shader.Find("UI/Default"));
-                    _cutoutMaterial.name = "UIInverseMask-Cutout";
-                    _cutoutMaterial.color = new Color(1f, 1f, 1f, 1f / 256f);
-                    _cutoutMaterial.shaderKeywords = new string[] { "UNITY_UI_ALPHACLIP" };
-                    _cutoutMaterial.SetInt("_Stencil", 1);
-                    _cutoutMaterial.SetInt("_StencilComp", 8);
-                    _cutoutMaterial.SetInt("_StencilOp", 2);
-                    _cutoutMaterial.SetInt("_StencilWriteMask", 255);
-                    _cutoutMaterial.SetInt("_StencilReadMask", 255);
-                    _cutoutMaterial.SetInt("_ColorMask", 0);
-                    _cutoutMaterial.SetInt("_UseUIAlphaClip", 1);
+                    m_CutoutMaterial = new Material(Shader.Find("UI/Default"));
+                    m_CutoutMaterial.name = "UIInverseMask-Cutout";
+                    m_CutoutMaterial.color = new Color(1f, 1f, 1f, 1f / 256f);
+                    m_CutoutMaterial.shaderKeywords = new string[] { "UNITY_UI_ALPHACLIP" };
+                    m_CutoutMaterial.SetInt("_Stencil", 1);
+                    m_CutoutMaterial.SetInt("_StencilComp", 8);
+                    m_CutoutMaterial.SetInt("_StencilOp", 2);
+                    m_CutoutMaterial.SetInt("_StencilWriteMask", 255);
+                    m_CutoutMaterial.SetInt("_StencilReadMask", 255);
+                    m_CutoutMaterial.SetInt("_ColorMask", 0);
+                    m_CutoutMaterial.SetInt("_UseUIAlphaClip", 1);
                 }
 
-                return _cutoutMaterial;
+                return m_CutoutMaterial;
             }
         }
 
@@ -51,38 +51,38 @@ namespace Zigurous.UI
         {
             get
             {
-                if (_contentMaterial == null)
+                if (m_ContentMaterial == null)
                 {
-                    _contentMaterial = new Material(Shader.Find("UI/Default"));
-                    _contentMaterial.name = "UIInverseMask-Content";
-                    _contentMaterial.color = Color.white;
-                    _contentMaterial.SetInt("_Stencil", 2);
-                    _contentMaterial.SetInt("_StencilComp", 3);
-                    _contentMaterial.SetInt("_StencilOp", 0);
-                    _contentMaterial.SetInt("_StencilWriteMask", 0);
-                    _contentMaterial.SetInt("_StencilReadMask", 1);
-                    _contentMaterial.SetInt("_ColorMask", 15);
-                    _contentMaterial.SetInt("_UseUIAlphaClip", 0);
+                    m_ContentMaterial = new Material(Shader.Find("UI/Default"));
+                    m_ContentMaterial.name = "UIInverseMask-Content";
+                    m_ContentMaterial.color = Color.white;
+                    m_ContentMaterial.SetInt("_Stencil", 2);
+                    m_ContentMaterial.SetInt("_StencilComp", 3);
+                    m_ContentMaterial.SetInt("_StencilOp", 0);
+                    m_ContentMaterial.SetInt("_StencilWriteMask", 0);
+                    m_ContentMaterial.SetInt("_StencilReadMask", 1);
+                    m_ContentMaterial.SetInt("_ColorMask", 15);
+                    m_ContentMaterial.SetInt("_UseUIAlphaClip", 0);
                 }
 
-                return _contentMaterial;
+                return m_ContentMaterial;
             }
         }
 
         #if UNITY_EDITOR
-        private bool _invalidated;
+        private bool invalidated;
 
         private void OnValidate()
         {
-            _invalidated = true;
+            invalidated = true;
         }
 
         private void Update()
         {
-            if (_invalidated)
+            if (invalidated)
             {
                 Apply();
-                _invalidated = false;
+                invalidated = false;
             }
         }
         #endif
