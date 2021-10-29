@@ -152,6 +152,8 @@ namespace Zigurous.UI
             }
 
             SetViewportHeight(desiredHeight);
+
+            coroutine = null;
         }
 
         private float CalculateViewportHeight()

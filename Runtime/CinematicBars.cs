@@ -216,6 +216,8 @@ namespace Zigurous.UI
             }
 
             SetDesiredHeight(desiredHeight);
+
+            coroutine = null;
         }
 
         private float CalculateMatteHeight()
