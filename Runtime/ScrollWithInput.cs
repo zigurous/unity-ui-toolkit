@@ -135,7 +135,7 @@ namespace Zigurous.UI
             catch
             {
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                Debug.LogWarning($"[ScrollWithInput]: Input axis '{inputName}' is not setup.\nDefine the input in the Input Manager settings accessed from the menu: Edit > Project Settings");
+                Debug.LogWarning($"[ScrollWithInput] Input axis '{inputName}' is not setup.\nDefine the input in the Input Manager settings accessed from the menu: Edit > Project Settings");
                 #endif
             }
 
