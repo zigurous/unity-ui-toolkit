@@ -46,7 +46,7 @@ namespace Zigurous.UI
         /// off the stack.
         /// </summary>
         [Tooltip("The input button that handles backwards navigation by popping items off the stack.")]
-        public string backNavigationInputButton = "Cancel";
+        public string legacyBackNavigationInput = "Cancel";
         #endif
 
         /// <summary>
@@ -116,8 +116,17 @@ namespace Zigurous.UI
         #if ENABLE_LEGACY_INPUT_MANAGER
         private void Update()
         {
-            if (Input.GetButtonDown(backNavigationInputButton)) {
-                Pop();
+            try
+            {
+                if (!string.IsNullOrEmpty(legacyBackNavigationInput) && Input.GetButtonDown(legacyBackNavigationInput)) {
+                    Pop();
+                }
+            }
+            catch
+            {
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.LogWarning($"[NavigationStack]: Input button '{legacyBackNavigationInput}' is not setup.\nDefine the input in the Input Manager settings accessed from the menu: Edit > Project Settings");
+                #endif
             }
         }
         #endif

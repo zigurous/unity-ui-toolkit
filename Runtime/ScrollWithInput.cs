@@ -20,34 +20,26 @@ namespace Zigurous.UI
         /// </summary>
         public ScrollRect scrollRect { get; private set; }
 
-        /// <summary>
-        /// The direction to scroll the ScrollRect.
-        /// </summary>
-        [Tooltip("The direction to scroll the ScrollRect.")]
-        public ScrollDirection scrollDirection = ScrollDirection.Vertical;
-
         #if ENABLE_INPUT_SYSTEM
-
         /// <summary>
         /// The input action that handles scrolling.
         /// </summary>
         [Tooltip("The input action that handles scrolling.")]
         public InputAction scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
+        #endif
 
-        #elif ENABLE_LEGACY_INPUT_MANAGER
+        #if ENABLE_LEGACY_INPUT_MANAGER
+        /// <summary>
+        /// The legacy input axis that handles scrolling in the y-axis.
+        /// </summary>
+        [Tooltip("The legacy input axis that handles scrolling in the y-axis.")]
+        public string legacyScrollInputY = "";
 
         /// <summary>
-        /// The input axis that handles scrolling in the y-axis.
+        /// The legacy input axis that handles scrolling in the x-axis.
         /// </summary>
-        [Tooltip("The input axis that handles scrolling in the y-axis.")]
-        public string scrollInputAxisY = "";
-
-        /// <summary>
-        /// The input axis that handles scrolling in the x-axis.
-        /// </summary>
-        [Tooltip("The input axis that handles scrolling in the x-axis.")]
-        public string scrollInputAxisX = "";
-
+        [Tooltip("The legacy input axis that handles scrolling in the x-axis.")]
+        public string legacyScrollInputX = "";
         #endif
 
         /// <summary>
@@ -55,6 +47,12 @@ namespace Zigurous.UI
         /// </summary>
         [Tooltip("The sensitivity multiplier applied to the input.")]
         public float sensitivity = 1f;
+
+        /// <summary>
+        /// The direction to scroll the ScrollRect.
+        /// </summary>
+        [Tooltip("The direction to scroll the ScrollRect.")]
+        public ScrollDirection direction = ScrollDirection.Vertical;
 
         private void Awake()
         {
@@ -96,17 +94,19 @@ namespace Zigurous.UI
 
                 #if ENABLE_INPUT_SYSTEM
                 input = scrollInput.ReadValue<Vector2>();
-                #elif ENABLE_LEGACY_INPUT_MANAGER
-                if (scrollInputAxisY != "") {
-                    input.y = Input.GetAxis(scrollInputAxisY);
+                #endif
+
+                #if ENABLE_LEGACY_INPUT_MANAGER
+                if (input.y == 0f) {
+                    input.y = GetAxis(legacyScrollInputX);
                 }
 
-                if (scrollInputAxisX != "") {
-                    input.x = Input.GetAxis(scrollInputAxisX);
+                if (input.x == 0f) {
+                    input.x = GetAxis(legacyScrollInputY);
                 }
                 #endif
 
-                switch (scrollDirection)
+                switch (direction)
                 {
                     case ScrollDirection.Vertical:
                         input.x = 0f;
@@ -120,6 +120,28 @@ namespace Zigurous.UI
                 scrollRect.normalizedPosition += input * sensitivity * Time.unscaledDeltaTime;
             }
         }
+
+        #if ENABLE_LEGACY_INPUT_MANAGER
+        private float GetAxis(string inputName)
+        {
+            float value = 0f;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(inputName)) {
+                    value = Input.GetAxis(inputName);
+                }
+            }
+            catch
+            {
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.LogWarning($"[ScrollWithInput]: Input axis '{inputName}' is not setup.\nDefine the input in the Input Manager settings accessed from the menu: Edit > Project Settings");
+                #endif
+            }
+
+            return value;
+        }
+        #endif
 
     }
 
