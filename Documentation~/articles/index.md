@@ -8,17 +8,22 @@ The **UI Toolkit** package contains scripts and utilities for creating UI in Uni
 
 <hr/>
 
-## 📌 Overview
+## Overview
 
-- [Scripting API](/api/Zigurous.UI)
-- [Installation](/manual/installation)
-- [Changelog](/changelog)
-- [License](/license)
+#### ⚙️ [Installation](/installation)
+
+#### 🧰 [Scripting API](/api/Zigurous.UI)
+
+#### 📋 [Changelog](/changelog)
+
+#### ⚖️ [License](/license)
 
 <hr/>
 
-## 📖 Reference
+## Reference
 
-- [Menu Tools](/manual/menus)
-- [Letterboxing](/manual/letterboxing)
-- [Screen Size](/manual/screen-size)
+#### 📑 [Menu Tools](/manual/menus)
+
+#### 🎞️ [Letterboxing](/manual/letterboxing)
+
+#### 📏 [Screen Size](/manual/screen-size)
