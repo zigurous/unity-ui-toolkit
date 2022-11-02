@@ -7,6 +7,28 @@ namespace Zigurous.UI
     /// </summary>
     public static class RectTransformExtensions
     {
+        private static Vector3[] corners = new Vector3[4];
+
+        /// <summary>
+        /// Calculates the world-space rect of the transform.
+        /// <summary>
+        /// <param name="transform">The transform to calculate the world rect of.</param>
+        /// <param name="ignoreScale">Ignores the scale of the transform when setting the rect size (default=false).</param>
+        /// <returns>The world rect of the transform.</returns>
+        public static Rect GetWorldRect(this RectTransform transform, bool ignoreScale = false)
+        {
+            transform.GetWorldCorners(corners);
+
+            Vector3 topLeft = corners[0];
+            Vector3 size = transform.rect.size;
+
+            if (!ignoreScale) {
+                size.Scale(transform.lossyScale);
+            }
+
+            return new Rect(topLeft, size);
+        }
+
         /// <summary>
         /// Sets the width of the rect transform to the given value.
         /// </summary>
