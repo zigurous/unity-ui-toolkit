@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Zigurous.UI
 {
@@ -27,6 +28,18 @@ namespace Zigurous.UI
         public static void FadeOut(this Graphic graphic, float duration, bool ignoreTimeScale = false)
         {
             graphic.CrossFadeAlpha(0f, duration, ignoreTimeScale);
+        }
+
+        /// <summary>
+        /// Sets the alpha color of the graphic.
+        /// </summary>
+        /// <param name="graphic">The graphic to set the alpha of.</param>
+        /// <param name="alpha">The alpha value to set.</param>
+        public static void SetAlpha(this Graphic graphic, float alpha)
+        {
+            Color color = graphic.color;
+            color.a = alpha;
+            graphic.color = color;
         }
 
     }
