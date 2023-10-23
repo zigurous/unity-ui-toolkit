@@ -29,7 +29,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The current selected game object at the top of the stack (Read only).
         /// </summary>
-        public GameObject top => items.Count > 0 ? items.Peek() : null;
+        public GameObject Top => items.Count > 0 ? items.Peek() : null;
 
         #if ENABLE_INPUT_SYSTEM
         /// <summary>
@@ -63,10 +63,9 @@ namespace Zigurous.UI
         public bool setActiveState = true;
 
         /// <summary>
-        /// Allows for all items to be popped off the stack. Often times you
-        /// want to maintain at least the root game object.
+        /// Allows for all items to be popped off the stack, including the root.
         /// </summary>
-        [Tooltip("Allows for all items to be popped off the stack. Often times you want to maintain at least the root game object.")]
+        [Tooltip("Allows for all items to be popped off the stack, including the root.")]
         public bool allowEmptyStack = false;
 
         /// <summary>
