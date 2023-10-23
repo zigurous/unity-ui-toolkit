@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Zigurous.UI
@@ -24,6 +24,11 @@ namespace Zigurous.UI
         /// The camera being letterboxed (Read only).
         /// </summary>
         public new Camera camera { get; private set; }
+
+        /// <summary>
+        /// The current width of the viewport (Read only).
+        /// </summary>
+        public float viewportWidth => camera.rect.width;
 
         /// <summary>
         /// The current height of the viewport (Read only).

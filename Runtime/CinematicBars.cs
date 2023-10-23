@@ -230,8 +230,8 @@ namespace Zigurous.UI
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
 
-            // Screen.width and Screen.height oddly does not always give the
-            // correct values so try to use ScreenSizeListener if available
+            // Screen.width and Screen.height does not always give the correct
+            // values so try to use ScreenSizeListener if available
             if (ScreenSizeListener.HasInstance)
             {
                 screenWidth = ScreenSizeListener.Instance.width;

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Zigurous.UI
@@ -20,7 +20,7 @@ namespace Zigurous.UI
         /// The shared material applied to an image that is masking another
         /// image. This image acts as a cutout, thus its contents are not visible.
         /// </summary>
-        public static Material cutoutMaterial
+        public static Material CutoutMaterial
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Zigurous.UI
         /// The content of these images will be visible in the shape of the
         /// parent cutout mask.
         /// </summary>
-        public static Material contentMaterial
+        public static Material ContentMaterial
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Zigurous.UI
         private void Apply()
         {
             Image mask = GetComponent<Image>();
-            mask.material = InverseMask.cutoutMaterial;
+            mask.material = CutoutMaterial;
 
             Image[] images = GetComponentsInChildren<Image>();
             for (int i = 0; i < images.Length; i++)
@@ -109,7 +109,7 @@ namespace Zigurous.UI
                 Image image = images[i];
 
                 if (image.transform != transform) {
-                    image.material = InverseMask.contentMaterial;
+                    image.material = ContentMaterial;
                 }
             }
         }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zigurous.UI
 {
@@ -10,42 +10,36 @@ namespace Zigurous.UI
     public sealed class ScreenSizeListener : MonoBehaviour
     {
         private static volatile ScreenSizeListener instance;
-        private static object lockObject = new object();
+        private static readonly object threadLock = new object();
         private static bool isUnloading = false;
+
+        private static ScreenSizeListener GetInstance()
+        {
+            if (instance == null)
+            {
+                lock (threadLock)
+                {
+                    instance = FindObjectOfType<ScreenSizeListener>();
+
+                    if (instance == null && !isUnloading)
+                    {
+                        GameObject singleton = new GameObject();
+                        singleton.name = typeof(ScreenSizeListener).Name;
+                        singleton.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
+                        return singleton.AddComponent<ScreenSizeListener>();
+                    }
+                }
+            }
+
+            return instance;
+        }
 
         /// <summary>
         /// The current instance of the class. The instance will be created if
         /// it does not already exist.
         /// </summary>
         /// <returns>The instance of the class.</returns>
-        public static ScreenSizeListener Instance
-        {
-            get
-            {
-                if (isUnloading) {
-                    return null;
-                }
-
-                if (instance == null)
-                {
-                    lock (lockObject)
-                    {
-                        instance = FindObjectOfType<ScreenSizeListener>();
-
-                        if (instance == null)
-                        {
-                            GameObject singleton = new GameObject();
-                            singleton.name = typeof(ScreenSizeListener).Name;
-                            singleton.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
-                            singleton.AddComponent<ScreenSizeListener>();
-                            DontDestroyOnLoad(singleton);
-                        }
-                    }
-                }
-
-                return instance;
-            }
-        }
+        public static ScreenSizeListener Instance => GetInstance();
 
         /// <summary>
         /// Checks if the singleton has been initialized and an instance is
@@ -59,12 +53,12 @@ namespace Zigurous.UI
         /// </summary>
         /// <param name="width">The new width of the screen.</param>
         /// <param name="height">The new height of the screen.</param>
-        public delegate void OnResize(int width, int height);
+        public delegate void ResizeDelegate(int width, int height);
 
         /// <summary>
         /// A callback invoked when the screen size changes.
         /// </summary>
-        public OnResize resized;
+        public ResizeDelegate resized;
 
         /// <summary>
         /// The current size of the screen (Read only).
@@ -85,29 +79,35 @@ namespace Zigurous.UI
 
         private void Awake()
         {
-            isUnloading = false;
-
             if (instance == null)
             {
                 instance = this;
-
                 width = Screen.width;
                 height = Screen.height;
+
+                if (Application.isPlaying) {
+                    DontDestroyOnLoad(this);
+                }
             }
-            else {
+            else
+            {
                 Destroy(this);
             }
         }
 
         private void OnDestroy()
         {
-            resized = null;
-
-            isUnloading = true;
-
-            if (instance == this) {
+            if (instance == this)
+            {
                 instance = null;
+                resized = null;
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            isUnloading = true;
+            instance = null;
         }
 
         private void Update()
@@ -116,10 +116,7 @@ namespace Zigurous.UI
             {
                 width = Screen.width;
                 height = Screen.height;
-
-                if (resized != null) {
-                    resized.Invoke(width, height);
-                }
+                resized?.Invoke(width, height);
             }
         }
 
