@@ -7,6 +7,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     [AddComponentMenu("Zigurous/UI/Misc/Stretch to Screen Size")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/StretchToScreenSize")]
     public sealed class StretchToScreenSize : MonoBehaviour
     {
         /// <summary>

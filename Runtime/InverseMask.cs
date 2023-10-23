@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Zigurous.UI
@@ -10,6 +10,7 @@ namespace Zigurous.UI
     [ExecuteAlways]
     [RequireComponent(typeof(Image))]
     [AddComponentMenu("Zigurous/UI/Effects/Inverse Mask")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/InverseMask")]
     public sealed class InverseMask : MonoBehaviour
     {
         private static Material m_CutoutMaterial;

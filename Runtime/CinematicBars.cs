@@ -11,6 +11,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     [AddComponentMenu("Zigurous/UI/Misc/Cinematic Bars")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/CinematicBars")]
     public sealed class CinematicBars : MonoBehaviour
     {
         [SerializeField]

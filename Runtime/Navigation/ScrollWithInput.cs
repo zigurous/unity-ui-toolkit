@@ -13,6 +13,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("Zigurous/UI/Navigation/Scroll With Input")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/ScrollWithInput")]
     public class ScrollWithInput : MonoBehaviour
     {
         /// <summary>

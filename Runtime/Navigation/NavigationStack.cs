@@ -14,6 +14,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(EventSystem))]
     [AddComponentMenu("Zigurous/UI/Navigation/Navigation Stack")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/NavigationStack")]
     public class NavigationStack : MonoBehaviour
     {
         /// <summary>

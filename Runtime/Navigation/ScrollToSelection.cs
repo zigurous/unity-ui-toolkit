@@ -13,6 +13,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("Zigurous/UI/Navigation/Scroll To Selection")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/ScrollToSelection")]
     public class ScrollToSelection : MonoBehaviour
     {
         /// <summary>

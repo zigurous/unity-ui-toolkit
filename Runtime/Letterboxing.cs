@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 namespace Zigurous.UI
@@ -9,6 +9,7 @@ namespace Zigurous.UI
     /// </summary>
     [RequireComponent(typeof(Camera))]
     [AddComponentMenu("Zigurous/UI/Misc/Letterboxing")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/Letterboxing")]
     public sealed class Letterboxing : MonoBehaviour
     {
         [SerializeField]

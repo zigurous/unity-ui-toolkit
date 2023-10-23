@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Zigurous.UI
 {
@@ -6,6 +6,7 @@ namespace Zigurous.UI
     /// Listens for changes in the screen size.
     /// </summary>
     [AddComponentMenu("")]
+    [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/ScreenSizeListener")]
     public sealed class ScreenSizeListener : MonoBehaviour
     {
         private static volatile ScreenSizeListener instance;
