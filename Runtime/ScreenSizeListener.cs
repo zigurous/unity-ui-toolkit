@@ -9,8 +9,8 @@ namespace Zigurous.UI
     [HelpURL("https://docs.zigurous.com/com.zigurous.ui/api/Zigurous.UI/ScreenSizeListener")]
     public sealed class ScreenSizeListener : MonoBehaviour
     {
-        private static volatile ScreenSizeListener instance;
-        private static readonly object threadLock = new object();
+        internal static volatile ScreenSizeListener instance;
+        private static readonly object threadLock = new();
         private static bool isUnloading = false;
 
         private static ScreenSizeListener GetInstance()
@@ -23,9 +23,12 @@ namespace Zigurous.UI
 
                     if (instance == null && !isUnloading)
                     {
-                        GameObject singleton = new GameObject();
-                        singleton.name = typeof(ScreenSizeListener).Name;
-                        singleton.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
+                        GameObject singleton = new()
+                        {
+                            name = typeof(ScreenSizeListener).Name,
+                            hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector
+                        };
+
                         return singleton.AddComponent<ScreenSizeListener>();
                     }
                 }
@@ -35,8 +38,8 @@ namespace Zigurous.UI
         }
 
         /// <summary>
-        /// The current instance of the class. The instance will be created if
-        /// it does not already exist.
+        /// The current instance of the class.
+        /// The instance will be created if it does not already exist.
         /// </summary>
         /// <returns>The instance of the class.</returns>
         public static ScreenSizeListener Instance => GetInstance();
@@ -63,7 +66,7 @@ namespace Zigurous.UI
         /// <summary>
         /// The current size of the screen (Read only).
         /// </summary>
-        public Vector2Int size => new Vector2Int(width, height);
+        public Vector2Int size => new(width, height);
 
         /// <summary>
         /// The current width of the screen (Read only).
@@ -107,7 +110,6 @@ namespace Zigurous.UI
         private void OnApplicationQuit()
         {
             isUnloading = true;
-            instance = null;
         }
 
         private void Update()

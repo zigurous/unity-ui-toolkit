@@ -26,7 +26,7 @@ namespace Zigurous.UI
         /// The input action that handles scrolling.
         /// </summary>
         [Tooltip("The input action that handles scrolling.")]
-        public InputAction scrollInput = new InputAction("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
+        public InputAction scrollInput = new("ScrollInput", InputActionType.Value, null, null, null, "Vector2");
         #endif
 
         #if ENABLE_LEGACY_INPUT_MANAGER

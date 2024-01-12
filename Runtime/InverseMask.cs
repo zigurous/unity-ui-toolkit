@@ -26,10 +26,12 @@ namespace Zigurous.UI
             {
                 if (m_CutoutMaterial == null)
                 {
-                    m_CutoutMaterial = new Material(Shader.Find("UI/Default"));
-                    m_CutoutMaterial.name = "UIInverseMask-Cutout";
-                    m_CutoutMaterial.color = new Color(1f, 1f, 1f, 1f / 256f);
-                    m_CutoutMaterial.shaderKeywords = new string[] { "UNITY_UI_ALPHACLIP" };
+                    m_CutoutMaterial = new Material(Shader.Find("UI/Default"))
+                    {
+                        name = "UIInverseMask-Cutout",
+                        color = new Color(1f, 1f, 1f, 1f / 256f),
+                        shaderKeywords = new string[] { "UNITY_UI_ALPHACLIP" }
+                    };
                     m_CutoutMaterial.SetInt("_Stencil", 1);
                     m_CutoutMaterial.SetInt("_StencilComp", 8);
                     m_CutoutMaterial.SetInt("_StencilOp", 2);
@@ -54,9 +56,11 @@ namespace Zigurous.UI
             {
                 if (m_ContentMaterial == null)
                 {
-                    m_ContentMaterial = new Material(Shader.Find("UI/Default"));
-                    m_ContentMaterial.name = "UIInverseMask-Content";
-                    m_ContentMaterial.color = Color.white;
+                    m_ContentMaterial = new Material(Shader.Find("UI/Default"))
+                    {
+                        name = "UIInverseMask-Content",
+                        color = Color.white
+                    };
                     m_ContentMaterial.SetInt("_Stencil", 2);
                     m_ContentMaterial.SetInt("_StencilComp", 3);
                     m_ContentMaterial.SetInt("_StencilOp", 0);
